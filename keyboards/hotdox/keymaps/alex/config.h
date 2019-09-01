@@ -3,7 +3,7 @@
 // place overrides here
 // override this value if run into typing speed limitations
 #undef TAPPING_TERM
-#define TAPPING_TERM    150
+#define TAPPING_TERM    220
 
 #undef LEADER_TIMEOUT
 #define LEADER_TIMEOUT 300
@@ -12,7 +12,7 @@
 #define MOUSEKEY_INTERVAL 16 // 1/60 = 16
 
 #undef MOUSEKEY_MAX_SPEED
-#define MOUSEKEY_MAX_SPEED 10
+#define MOUSEKEY_MAX_SPEED 5
 
 #undef MOUSEKEY_TIME_TO_MAX
-#define MOUSEKEY_TIME_TO_MAX 20
+#define MOUSEKEY_TIME_TO_MAX 15
