@@ -1,12 +1,14 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
 
+// #region #defines
 #define BASE 0 // default layer
 #define SYMB 1 // symbols
 #define MDIA 2 // media keys
 #define TG_4 TG(4) //keymapceditor bug?
+// #endregion
 
-// Tapdance definitions
+// #region Tapdance definitions
 typedef struct {
   bool is_press_action;
   int state;
@@ -34,11 +36,14 @@ int cur_dance (qk_tap_dance_state_t *state);
 void x_finished (qk_tap_dance_state_t *state, void *user_data);
 void x_reset (qk_tap_dance_state_t *state, void *user_data);
 
+//#endregion
+
 enum custom_keycodes {
   VRSN = SAFE_RANGE,
   RGB_SLD
 };
 
+// #region keymap 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
@@ -172,6 +177,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  [4] = LAYOUT_ergodox(KC_GRAVE,KC_1,KC_2,KC_3,KC_4,KC_5,KC_LEFT,KC_TAB,KC_Q,KC_W,KC_E,KC_R,KC_T,KC_TRANSPARENT,KC_CAPSLOCK,KC_A,KC_S,KC_D,KC_F,KC_G,KC_LSHIFT,KC_Z,KC_X,KC_C,KC_V,KC_B,KC_TRANSPARENT,KC_EQUAL,KC_LCTRL,KC_LGUI,KC_LALT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_SPACE,KC_TRANSPARENT,KC_TRANSPARENT,KC_RIGHT,KC_6,KC_7,KC_8,KC_9,KC_0,KC_MINUS,KC_TRANSPARENT,KC_Y,KC_U,KC_I,KC_O,KC_P,KC_BSLASH,KC_H,KC_J,KC_K,KC_L,KC_SCOLON,KC_QUOTE,KC_TRNS,KC_N,KC_M,KC_COMMA,KC_DOT,KC_SLASH,KC_RSHIFT,KC_TRANSPARENT,KC_RALT,KC_RGUI,KC_RCTRL,KC_RCTRL,TG_4,KC_TRANSPARENT,KC_UP,KC_DOWN,KC_TRANSPARENT,KC_TRANSPARENT),
 };
 
+// #endregion
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     // dynamically generate these.
@@ -232,7 +238,7 @@ uint16_t get_tapping_term(uint16_t keycode) {
   }
 }
 
-//tapdance implementation
+// #region tapdance implementation
 /* Return an integer that corresponds to what kind of tap dance should be executed.
  *
  * How to figure out tap dance state: interrupted and pressed.
@@ -320,4 +326,9 @@ void x_reset (qk_tap_dance_state_t *state, void *user_data) {
 qk_tap_dance_action_t tap_dance_actions[] = {
   [X_CTL]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,x_finished, x_reset)
 };
+//#endregion
 
+
+// #region macro helpers
+// TODO add any extra helper methods here
+// #endregion 
