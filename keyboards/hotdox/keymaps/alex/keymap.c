@@ -8,6 +8,17 @@
 #define TG_4 TG(4) //keymapceditor bug?
 // #endregion
 
+// #region Split Toggle macro definitions
+void split_toggle(void);
+void split_left(void);
+void split_right(void);
+
+typedef struct {
+  bool is_active;
+} toggle;
+
+// #endregion
+
 // #region Tapdance definitions
 typedef struct {
   bool is_press_action;
@@ -40,7 +51,9 @@ void x_reset (qk_tap_dance_state_t *state, void *user_data);
 
 enum custom_keycodes {
   VRSN = SAFE_RANGE,
-  RGB_SLD
+  SPLIT_TOGGLE,
+  SPLIT_LEFT,
+  SPLIT_RIGHT
 };
 
 // #region keymap 
@@ -74,8 +87,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRAVE,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_LEFT,
         KC_TAB,        LCAG_T(KC_Q),         MEH_T(KC_W),   ALL_T(KC_E),   KC_R,   LT(MDIA,KC_T),   TG(SYMB),
         HYPR_T(KC_ESCAPE),        MT(MOD_LCTL|MOD_LGUI,KC_A),         MT(MOD_LALT|MOD_LGUI,KC_S),   SGUI_T(KC_D),   C_S_T(KC_F),   LCA_T(KC_G),
-        KC_LSPO,        CTL_T(KC_Z),  GUI_T(KC_X),   ALT_T(KC_C),   MT(MOD_LSFT|MOD_LALT,KC_V),   LCA_T(KC_B),   ALL_T(KC_NO),
-        LT(SYMB,KC_EQUAL),KC_QUOT,      LALT(KC_LSFT),  KC_LEFT,KC_TAB,
+        KC_LSPO,        CTL_T(KC_Z),  GUI_T(KC_X),   ALT_T(KC_C),   MT(MOD_LSFT|MOD_LALT,KC_V),   LCA_T(KC_B),   SPLIT_LEFT,
+        LT(SYMB,KC_EQUAL),KC_QUOT,      LALT(KC_LSFT),  KC_TRNS,SPLIT_TOGGLE,
                                               ALT_T(KC_APP),  LT(MDIA,KC_LGUI),
                                                               KC_HOME,
                                                LT(3,KC_SPC),LT(SYMB,KC_BSPC),KC_END,
@@ -83,8 +96,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_RGHT,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_MINS,
              TG(SYMB),    LT(MDIA,KC_Y),   KC_U,  ALL_T(KC_I),   MEH_T(KC_O),   LCAG_T(KC_P),             KC_BSLS,
                           LCA_T(KC_H),   C_S_T(KC_J),  SGUI_T(KC_K),   MT(MOD_LALT|MOD_LGUI,KC_L),   MT(MOD_LCTL|MOD_LGUI,KC_SCLN),GUI_T(KC_QUOT),
-             MEH_T(KC_NO),LCA_T(KC_N),   MT(MOD_LSFT|MOD_LALT,KC_M),  RALT_T(KC_COMM),RGUI_T(KC_DOT), CTL_T(KC_SLSH),   KC_RSPC,
-                                  TD(X_CTL), KC_LBRACKET,KC_RBRACKET,KC_DOWN,          KC_FN1,
+             SPLIT_RIGHT,LCA_T(KC_N),   MT(MOD_LSFT|MOD_LALT,KC_M),  RALT_T(KC_COMM),RGUI_T(KC_DOT), CTL_T(KC_SLSH),   KC_RSPC,
+                                  KC_TRNS, TD(X_CTL),KC_RBRACKET,KC_DOWN,          KC_FN1,
              TG_4,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,LT(SYMB,KC_DELETE),LT(3,KC_ENT)
@@ -127,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_DOWN, KC_4,   KC_5,    KC_6,    KC_PLUS, KC_ENTER,
        KC_TRNS, KC_AMPR, KC_1,   KC_2,    KC_3,    KC_BSLS, KC_TRNS,
                          KC_TRNS,KC_DOT,  KC_0,    KC_ASTR,  KC_TRNS,
-       RGB_TOG, RGB_SLD,
+       KC_TRNS, KC_TRNS,
        KC_TRNS,
        KC_TRNS, RGB_HUD, RGB_HUI
 ),
@@ -178,6 +191,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // #endregion
+
+// #region matrix methods
+// Runs just one time when the keyboard initializes.
+void matrix_init_user(void) {
+
+};
+
+// Runs constantly in the background, in a loop.
+void matrix_scan_user(void) {
+};
+
+// #endregion
+
+// #region process_record_user
+
+static toggle split_toggle_state = {
+  .is_active = false,
+};
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     // dynamically generate these.
@@ -187,56 +219,45 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case RGB_SLD:
+    case SPLIT_TOGGLE:
       if (record->event.pressed) {
-        #ifdef RGBLIGHT_ENABLE
-          rgblight_mode(1);
-        #endif
+        split_toggle_state.is_active = split_toggle_state.is_active ? false : true;
+
+        split_toggle();
       }
       return false;
       break;
+    case SPLIT_LEFT:
+      if (record->event.pressed) {
+        split_left();
+      }
+      return false;
+      break;
+    case SPLIT_RIGHT:
+      if (record->event.pressed) {
+        split_right();
+      }
+      return false;
+      break;
+
   }
   return true;
 }
 
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-
-};
+// #endregion
 
 
-// Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
-
-    uint8_t layer = biton32(layer_state);
-
-    ergodox_right_led_1_off();
-    ergodox_right_led_2_off();
-    ergodox_right_led_3_off();
-    switch (layer) {
-      // TODO: Make this relevant to the ErgoDox EZ.
-        case 1:
-            ergodox_right_led_1_on();
-            break;
-        case 2:
-            ergodox_right_led_2_on();
-            break;
-        default:
-            // none
-            break;
-    }
-};
-
-// custom tapping term implementation
+// #region custom tapping termination time implementation
 uint16_t get_tapping_term(uint16_t keycode) {
   switch (keycode) {
     // shift easier to reach, reduce misinterpreting shift+x as (x taps
     case KC_LSPO || KC_RSPC:
-      return TAPPING_TERM - 50;
+      return TAPPING_TERM - 70;
     default:
       return TAPPING_TERM;
   }
 }
+// #endregion
 
 // #region tapdance implementation
 /* Return an integer that corresponds to what kind of tap dance should be executed.
@@ -292,7 +313,7 @@ int cur_dance (qk_tap_dance_state_t *state) {
   else return 8; //magic number. At some point this method will expand to work for more presses
 }
 
-//instanalize an instance of 'tap' for the 'x' tap dance.
+//instantiate an instance of 'tap' for the 'x' tap dance.
 static tap xtap_state = {
   .is_press_action = true,
   .state = 0
@@ -330,5 +351,60 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 
 // #region macro helpers
-// TODO add any extra helper methods here
+
+// #region Split toggle macro helpers
+void split_toggle() {
+  if (split_toggle_state.is_active) {
+      tap_code16(G(KC_UP));
+      tap_code16(G(KC_UP));
+      tap_code16(G(KC_LEFT));
+      tap_code16(C(G(KC_L)));
+      tap_code16(G(KC_UP));
+      tap_code16(G(KC_UP));
+      tap_code16(G(KC_RIGHT));
+      tap_code16(C(G(KC_H)));
+  } else {
+      tap_code16(G(KC_UP));
+      tap_code16(G(KC_UP));
+      tap_code16(C(G(KC_L)));
+      tap_code16(G(KC_UP));
+      tap_code16(G(KC_UP));
+      tap_code16(C(G(KC_H)));
+  }
+}
+
+void split_left() {
+  if (split_toggle_state.is_active) {
+      tap_code16(G(KC_UP));
+      tap_code16(G(KC_UP));
+      tap_code16(C(G(KC_L)));
+      tap_code16(G(KC_UP));
+      tap_code16(G(KC_UP));
+      tap_code16(C(G(KC_H)));
+      tap_code16(G(KC_RIGHT));
+      tap_code16(C(G(KC_H)));
+      tap_code16(G(KC_LEFT));
+  } else {
+      tap_code16(C(G(KC_H)));
+  }
+}
+
+void split_right() {
+  if (split_toggle_state.is_active) {
+      tap_code16(G(KC_UP));
+      tap_code16(G(KC_UP));
+      tap_code16(C(G(KC_L)));
+      tap_code16(G(KC_UP));
+      tap_code16(G(KC_UP));
+      tap_code16(G(KC_LEFT));
+      tap_code16(C(G(KC_L)));
+      tap_code16(G(KC_RIGHT));
+      tap_code16(C(G(KC_H)));
+  } else {
+      tap_code16(C(G(KC_L)));
+  }
+}
+
+// #endregion 
+
 // #endregion 
