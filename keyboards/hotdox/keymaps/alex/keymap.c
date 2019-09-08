@@ -36,20 +36,17 @@ enum {
 
 //Tap dance enums
 enum {
-  X_CTL = 0,
-  SOME_OTHER_DANCE
+  CT_CLN = 0,
+  CT_QUOT = 1,
 };
 
 int cur_dance (qk_tap_dance_state_t *state);
 
 //for the x tap dance. Put it here so it can be used in any keymap
-void x_finished (qk_tap_dance_state_t *state, void *user_data);
-void x_reset (qk_tap_dance_state_t *state, void *user_data);
-// higher order functions failed attempt
-// void (*generate_reset(int key, int function))(qk_tap_dance_state_t*, void*);
-// void (*generate_finished(int key, int function))(qk_tap_dance_state_t*, void*); 
-// void f1_finished (qk_tap_dance_state_t *state, void *user_data);
-// void f1_reset (qk_tap_dance_state_t *state, void *user_data);
+void ct_cln_finished (qk_tap_dance_state_t *state, void *user_data);
+void ct_cln_reset (qk_tap_dance_state_t *state, void *user_data);
+void ct_quot_finished (qk_tap_dance_state_t *state, void *user_data);
+void ct_quot_reset (qk_tap_dance_state_t *state, void *user_data);
 
 //#endregion
 
@@ -99,9 +96,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          // right hand
              KC_RGHT,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_MINS,
              TG(SYMB),    LT(MDIA,KC_Y),   KC_U,  ALL_T(KC_I),   MEH_T(KC_O),   LCAG_T(KC_P),             KC_BSLS,
-                          LCA_T(KC_H),   C_S_T(KC_J),  SGUI_T(KC_K),   MT(MOD_LALT|MOD_LGUI,KC_L),   MT(MOD_LCTL|MOD_LGUI,KC_SCLN),GUI_T(KC_QUOT),
+                          LCA_T(KC_H),   C_S_T(KC_J),  SGUI_T(KC_K),   MT(MOD_LALT|MOD_LGUI,KC_L),   TD(CT_CLN),TD(CT_QUOT),
              SPLIT_RIGHT,LCA_T(KC_N),   MT(MOD_LSFT|MOD_LALT,KC_M),  RALT_T(KC_COMM),RGUI_T(KC_DOT), CTL_T(KC_SLSH),   KC_RSPC,
-                                  KC_LEAD, TD(X_CTL),KC_RBRACKET,KC_DOWN,          KC_FN1,
+                                  KC_LEAD, KC_TRNS,KC_RBRACKET,C(S(KC_F11)),          C(S(KC_F12)),
              TG_4,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,LT(SYMB,KC_DELETE),LT(3,KC_ENT)
@@ -189,7 +186,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_WBAK
 ),
- [3] = LAYOUT_ergodox(KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_CAPSLOCK,KC_TRANSPARENT,KC_TRANSPARENT,KC_PGDOWN,KC_FIND,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_CUT,KC_INSERT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_SPACE,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_PGUP,KC_HOME,KC_END,KC_TRNS,KC_EQUAL,KC_LEFT,KC_DOWN,KC_UP,KC_RIGHT,KC_BSPACE,KC_DELETE,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT),
+ [3] = LAYOUT_ergodox(KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_CAPSLOCK,KC_TRANSPARENT,KC_TRANSPARENT,KC_PGDOWN,KC_FIND,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_CUT,KC_INSERT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_SPACE,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_PGUP,KC_HOME,KC_END,KC_TRNS,KC_EQUAL,KC_LEFT,KC_DOWN,KC_UP,KC_RIGHT,KC_BSPACE,KC_DELETE,KC_TRANSPARENT,KC_TRNS,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRNS,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT),
 
  [4] = LAYOUT_ergodox(KC_GRAVE,KC_1,KC_2,KC_3,KC_4,KC_5,KC_LEFT,KC_TAB,KC_Q,KC_W,KC_E,KC_R,KC_T,KC_TRANSPARENT,KC_CAPSLOCK,KC_A,KC_S,KC_D,KC_F,KC_G,KC_LSHIFT,KC_Z,KC_X,KC_C,KC_V,KC_B,KC_TRANSPARENT,KC_EQUAL,KC_LCTRL,KC_LGUI,KC_LALT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_SPACE,KC_TRANSPARENT,KC_TRANSPARENT,KC_RIGHT,KC_6,KC_7,KC_8,KC_9,KC_0,KC_MINUS,KC_TRANSPARENT,KC_Y,KC_U,KC_I,KC_O,KC_P,KC_BSLASH,KC_H,KC_J,KC_K,KC_L,KC_SCOLON,KC_QUOTE,KC_TRNS,KC_N,KC_M,KC_COMMA,KC_DOT,KC_SLASH,KC_RSHIFT,KC_TRANSPARENT,KC_RALT,KC_RGUI,KC_RCTRL,KC_RCTRL,TG_4,KC_TRANSPARENT,KC_UP,KC_DOWN,KC_TRANSPARENT,KC_TRANSPARENT),
 };
@@ -341,7 +338,7 @@ uint16_t get_tapping_term(uint16_t keycode) {
 }
 // #endregion
 
-// #region tapdance implementation
+// #region tapdance implementations
 /* Return an integer that corresponds to what kind of tap dance should be executed.
  *
  * How to figure out tap dance state: interrupted and pressed.
@@ -395,72 +392,62 @@ int cur_dance (qk_tap_dance_state_t *state) {
   else return 8; //magic number. At some point this method will expand to work for more presses
 }
 
+// #region ct_cln fns : single, ; double
 //instantiate an instance of 'tap' for the 'x' tap dance.
-static tap xtap_state = {
+static tap cln_tap = {
   .state = 0
 };
 
-// TODO capslock one (use shift+caps to account onboard macros)
-// TODO explore stack bits to get hypr behaviour  - a | b?
-// TODO explore higher order functions to allow cleaner  multiple tap dances
-void x_finished (qk_tap_dance_state_t *state, void *user_data) {
-  xtap_state.state = cur_dance(state);
-  switch (xtap_state.state) {
-    case SINGLE_TAP: register_code16(KC_LPRN); break;
-    case SINGLE_HOLD: register_mods(MOD_BIT(KC_LSHIFT)); break;
-    case DOUBLE_TAP: register_code16(S(KC_COMMA)); break;
-    case DOUBLE_SINGLE_TAP: register_code16(KC_LPRN); unregister_code16(KC_LPRN); register_code16(KC_LPRN);
+void ct_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
+  cln_tap.state = cur_dance(state);
+  switch (cln_tap.state) {
+    case SINGLE_TAP: register_code(KC_SCLN); break;
+    case SINGLE_HOLD: register_mods(MOD_LCTL | MOD_LGUI); break;
+    case DOUBLE_TAP: register_code16(S(KC_SCLN)); break;
+    case DOUBLE_SINGLE_TAP: register_code(KC_SCLN); unregister_code(KC_SCLN); register_code(KC_SCLN);
     //Last case is for fast typing. Assuming your key is `f`:
     //For example, when typing the word `buffer`, and you want to make sure that you send `ff` and not `Esc`.
     //In order to type `ff` when typing fast, the next character will have to be hit within the `TAPPING_TERM`, which by default is 200ms.
   }
 }
 
-void x_reset (qk_tap_dance_state_t *state, void *user_data) {
-  switch (xtap_state.state) {
-    case SINGLE_TAP: unregister_code16(KC_LPRN); break;
-    case SINGLE_HOLD: unregister_mods(MOD_BIT(KC_LSHIFT)); break;
-    case DOUBLE_TAP: unregister_code16(S(KC_COMMA)); break;
-    case DOUBLE_SINGLE_TAP: unregister_code16(KC_LPRN);
+void ct_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (cln_tap.state) {
+    case SINGLE_TAP: unregister_code(KC_SCLN); break;
+    case SINGLE_HOLD: unregister_mods(MOD_LCTL | MOD_LGUI); break;
+    case DOUBLE_TAP: unregister_code16(S(KC_SCLN)); break;
+    case DOUBLE_SINGLE_TAP: unregister_code(KC_SCLN);
   }
-  xtap_state.state = 0;
+  cln_tap.state = 0;
+}
+// #endregion
+
+// #region ct_quot fns(; ' single, "" double
+void ct_quot_finished (qk_tap_dance_state_t *state, void *user_data) {
+  switch (cur_dance(state)) {
+    case SINGLE_TAP: register_code(KC_QUOTE); break;
+    case DOUBLE_TAP: register_code16(S(KC_QUOTE)); break;
+    case DOUBLE_SINGLE_TAP: register_code(KC_QUOTE); unregister_code(KC_QUOTE); register_code(KC_QUOTE);
+    //Last case is for fast typing. Assuming your key is `f`:
+    //For example, when typing the word `buffer`, and you want to make sure that you send `ff` and not `Esc`.
+    //In order to type `ff` when typing fast, the next character will have to be hit within the `TAPPING_TERM`, which by default is 200ms.
+  }
 }
 
-// #region higher order functions failed attempt
-// void (*generate_finished(int key, int function))(qk_tap_dance_state_t*, void*) {
-//   void generic_finished (qk_tap_dance_state_t *state, void *user_data) {
-//     switch (cur_dance(state)) {
-//       case SINGLE_TAP: register_code16(key); break;
-//       case SINGLE_HOLD: register_code16(function); break;
-//     }
-//   }
-//   return generic_finished;
-// }
+void ct_quot_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (cur_dance(state)) {
+    case SINGLE_TAP: unregister_code(KC_QUOTE); break;
+    case DOUBLE_TAP: unregister_code16(S(KC_QUOTE)); break;
+    case DOUBLE_SINGLE_TAP: unregister_code(KC_QUOTE);
+  }
+}
 
-// void (*generate_reset(int key, int function))(qk_tap_dance_state_t*, void*) {
-//   void generic_reset (qk_tap_dance_state_t *state, void *user_data) {
-//     switch (cur_dance(state)) {
-//       case SINGLE_TAP: unregister_code16(key); break;
-//       case SINGLE_HOLD: unregister_code16(function); break;
-//     }
-//     xtap_state.state = 0;
-//   }
-
-//   return generic_reset;
-// }
-
-// void f1_finished (qk_tap_dance_state_t *state, void *user_data) {
-//   return generate_finished(KC_1, KC_F1)(state, user_data);
-// };
-
-// void f1_reset (qk_tap_dance_state_t *state, void *user_data) {
-//  return generate_reset(KC_1, KC_F1)(state, user_data);
-// };
 
 // #endregion
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [X_CTL]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,x_finished, x_reset),
+  [CT_CLN]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,ct_cln_finished, ct_cln_reset),
+  [CT_QUOT]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,ct_quot_finished, ct_quot_reset),
 };
 //#endregion
 
