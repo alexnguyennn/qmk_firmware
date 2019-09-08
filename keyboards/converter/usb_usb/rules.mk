@@ -7,11 +7,11 @@ EXTRAKEY_ENABLE  = yes  # Audio control and System control(+450)
 #CONSOLE_ENABLE   = yes  # Console for debug(+400)
 #COMMAND_ENABLE   = yes  # Commands for debug and configuration
 NKRO_ENABLE = no            # Enable N-Key Rollover
-BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
-RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
-AUDIO_ENABLE = no           # Audio output
-USB_HID_ENABLE = yes
-CUSTOM_MATRIX = yes
+#BACKLIGHT_ENABLE = yes
+USB_HID_ENABLE   = yes
+CUSTOM_MATRIX    = yes
+LEADER_ENABLE = yes
+# TAP_DANCE_ENABLE = yes
 
 SRC += custom_matrix.cpp
 
