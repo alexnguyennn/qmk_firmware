@@ -21,8 +21,11 @@
 //#define NO_ACTION_TAPPING
 #undef NO_ACTION_ONESHOT
 #define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
+// deprecated macro code - process_record_user + send_string different?
+#undef NO_ACTION_MACRO
+#define NO_ACTION_MACRO
+#undef NO_ACTION_FUNCTION
+#define NO_ACTION_FUNCTION
 // #undef DEBUG_MATRIX_SCAN_RATE
 // #define DEBUG_MATRIX_SCAN_RATE
 

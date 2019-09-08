@@ -22,3 +22,8 @@ LEADER_ENABLE = yes
 SRC =  matrix.c     \
        left.c
 I2C_DRIVER_REQUIRED = yes
+
+
+EXTRAFLAGS        += -flto # static linking save memory, errors out when macro/function actions enabled
+
+LAYOUTS = ergodox
