@@ -89,14 +89,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,        LCAG_T(KC_Q),         MEH_T(KC_W),   ALL_T(KC_E),   KC_R,   LT(MDIA,KC_T),   TG(SYMB),
         HYPR_T(KC_ESCAPE),        MT(MOD_LCTL|MOD_LGUI,KC_A),         MT(MOD_LALT|MOD_LGUI,KC_S),   SGUI_T(KC_D),   C_S_T(KC_F),   LCA_T(KC_G),
         KC_LSPO,        CTL_T(KC_Z),  GUI_T(KC_X),   ALT_T(KC_C),   MT(MOD_LSFT|MOD_LALT,KC_V),   LCA_T(KC_B),   SPLIT_LEFT,
-        LT(SYMB,KC_EQUAL),KC_QUOT,      LALT(KC_LSFT),  S(KC_CAPSLOCK),SPLIT_TOGGLE,
+        LT(SYMB,KC_EQUAL),S(KC_MINUS),      LALT(KC_LSFT),  S(KC_CAPSLOCK),SPLIT_TOGGLE,
                                               ALT_T(KC_APP),  LT(MDIA,KC_LGUI),
                                                               KC_HOME,
                                                LT(3,KC_SPC),LT(SYMB,KC_BSPC),KC_END,
          // right hand
              KC_RGHT,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_MINS,
              TG(SYMB),    LT(MDIA,KC_Y),   KC_U,  ALL_T(KC_I),   MEH_T(KC_O),   LCAG_T(KC_P),             KC_BSLS,
-                          LCA_T(KC_H),   C_S_T(KC_J),  SGUI_T(KC_K),   MT(MOD_LALT|MOD_LGUI,KC_L),   TD(CT_CLN),TD(CT_QUOT),
+                          LCA_T(KC_H),   C_S_T(KC_J),  SGUI_T(KC_K),   MT(MOD_LALT|MOD_LGUI,KC_L),   KC_SCOLON,KC_QUOTE,
              SPLIT_RIGHT,LCA_T(KC_N),   MT(MOD_LSFT|MOD_LALT,KC_M),  RALT_T(KC_COMM),RGUI_T(KC_DOT), CTL_T(KC_SLSH),   KC_RSPC,
                                   KC_LEAD, KC_TRNS,KC_RBRACKET,C(S(KC_F11)),          C(S(KC_F12)),
              TG_4,        CTL_T(KC_ESC),
@@ -132,9 +132,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_CAPSLOCK,KC_HASH,KC_DLR, S(KC_COMMA),S(KC_DOT),KC_GRV,
        KC_TRNS,KC_PERC,KC_CIRC,KC_LBRC,KC_RBRC,KC_TILD,KC_TRNS,
        EEP_RST,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-                                       RGB_MOD,KC_TRNS,
+                                       KC_TRNS,KC_TRNS,
                                                KC_TRNS,
-                               RGB_VAD,RGB_VAI,KC_TRNS,
+                               KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
        KC_TRNS, KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  KC_F11,
        KC_TRNS, KC_UP,   KC_7,   KC_8,    KC_9,    KC_EQUAL, KC_F12,
@@ -143,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                          KC_TRNS,KC_DOT,  KC_0,    KC_ASTR,  KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS,
-       KC_TRNS, RGB_HUD, RGB_HUI
+       KC_TRNS, KC_TRNS, KC_TRNS
 ),
 /* Keymap 2: Media and mouse keys
  *
@@ -331,7 +331,7 @@ uint16_t get_tapping_term(uint16_t keycode) {
   switch (keycode) {
     // shift easier to reach, reduce misinterpreting shift+x as (x taps
     case KC_LSPO || KC_RSPC:
-      return TAPPING_TERM - 70;
+      return TAPPING_TERM - 90;
     default:
       return TAPPING_TERM;
   }

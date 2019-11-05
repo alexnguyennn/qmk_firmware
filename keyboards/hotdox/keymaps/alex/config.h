@@ -3,7 +3,9 @@
 // place overrides here
 // override this value if run into typing speed limitations
 #undef TAPPING_TERM
-#define TAPPING_TERM    220
+#define TAPPING_TERM    180
+
+#define PERMISSIVE_HOLD
 
 #define TAPPING_TERM_PER_KEY
 
@@ -19,10 +21,10 @@
 #define MOUSEKEY_INTERVAL 16 // 1/60 = 16
 
 #undef MOUSEKEY_MAX_SPEED
-#define MOUSEKEY_MAX_SPEED 5
+#define MOUSEKEY_MAX_SPEED 4
 
 #undef MOUSEKEY_TIME_TO_MAX
-#define MOUSEKEY_TIME_TO_MAX 15
+#define MOUSEKEY_TIME_TO_MAX 0
 
 /*
  * Feature disable options
