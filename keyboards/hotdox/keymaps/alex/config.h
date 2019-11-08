@@ -21,11 +21,12 @@
 #define MOUSEKEY_INTERVAL 16 // 1/60 = 16
 
 #undef MOUSEKEY_MAX_SPEED
-#define MOUSEKEY_MAX_SPEED 4
+#define MOUSEKEY_MAX_SPEED 5
 
 #undef MOUSEKEY_TIME_TO_MAX
 #define MOUSEKEY_TIME_TO_MAX 0
 
+#define MK_MOMENTARY_ACCEL
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

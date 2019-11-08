@@ -169,11 +169,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // MEDIA AND MOUSE
 [MDIA] = LAYOUT_ergodox(
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_BTN1, KC_MS_U, KC_BTN2, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_MS_ACCEL0, KC_MS_ACCEL1, KC_MS_ACCEL2, KC_TRNS, KC_BTN3,
+       KC_TRNS, KC_TRNS, KC_ACL0, KC_ACL2, KC_ACL1, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_ACL2,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN1, KC_BTN2,
-                                           KC_BTN4, KC_TRNS,
+                                           KC_BTN3, KC_BTN4,
                                                     KC_TRNS,
                                   KC_BTN1, KC_BTN2, KC_TRNS,
     // right hand
@@ -202,6 +202,7 @@ void matrix_init_user(void) {
 LEADER_EXTERNS();
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
+
   LEADER_DICTIONARY() {
     leading = false;
 
@@ -324,6 +325,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 // #endregion
+
+// #region layer change code
+layer_state_t layer_state_set_user(layer_state_t state) {
+  switch (get_highest_layer(state)) {
+    case MDIA:
+      tap_code16(KC_F24);
+      break;
+    case 4:
+      tap_code16(KC_F23);
+      break;
+    case 3:
+      tap_code16(KC_F22);
+      break;
+    case SYMB:
+      tap_code16(KC_F21);
+      break;
+    default: //  for any other layers, or the default layer
+      tap_code16(KC_F20);
+      break;
+  }
+
+  return state;
+}
 
 
 // #region custom tapping termination time implementation
