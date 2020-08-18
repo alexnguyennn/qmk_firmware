@@ -117,7 +117,7 @@ void led_set_user(uint8_t usb_led) {
 layer_state_t layer_state_set_user(layer_state_t state) {
   switch (get_highest_layer(state)) {
     case 1:
-      tap_code16(KC_F21);
+      tap_code16(KC_F23);
       break;
     default: //  for any other layers, or the default layer
       tap_code16(KC_F20);

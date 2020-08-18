@@ -39,3 +39,7 @@
 
 #define MK_MOMENTARY_ACCEL
 
+// #undef TAPPING_TERM
+// #define TAPPING_TERM    180
+
+#define PERMISSIVE_HOLD
