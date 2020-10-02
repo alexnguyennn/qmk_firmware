@@ -11,7 +11,7 @@
 #define IGNORE_MOD_TAP_INTERRUPT
 
 #undef TAPPING_TERM
-#define TAPPING_TERM    180
+#define TAPPING_TERM    200
 
 #define TAPPING_TERM_PER_KEY
 
