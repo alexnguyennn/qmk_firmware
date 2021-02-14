@@ -3,7 +3,7 @@
 // place overrides here
 // override this value if run into typing speed limitations
 #undef TAPPING_TERM
-#define TAPPING_TERM    180
+#define TAPPING_TERM    200
 
 #define PERMISSIVE_HOLD
 
