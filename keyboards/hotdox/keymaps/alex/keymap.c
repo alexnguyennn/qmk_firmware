@@ -353,7 +353,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 
 // #region custom tapping termination time implementation
-uint16_t get_tapping_term(uint16_t keycode) {
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     // shift easier to reach, reduce misinterpreting shift+x as (x taps
     case KC_LSPO || KC_RSPC:
