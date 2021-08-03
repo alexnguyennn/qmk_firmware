@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,         LCAG_T(KC_Q),           KC_W,           LCAG_T(KC_E),           MT(MOD_MEH, KC_R),LT(2,KC_T),     TG(1),                                          TG(1),          LT(2,KC_Y),     MT(MOD_MEH, KC_U),LCAG_T(KC_I),           KC_O,           LCAG_T(KC_P),           KC_BSLASH,      
     MT(MOD_HYPR, KC_ESCAPE),MT(MOD_LCTL|MOD_LGUI,KC_A),           MT(MOD_LALT|MOD_LGUI,KC_S),           SGUI_T(KC_D),   C_S_T(KC_F),    LCA_T(KC_G),    KC_HYPR,                                                                        KC_MEH,         LCA_T(KC_H),    C_S_T(KC_J),    SGUI_T(KC_K),   MT(MOD_LALT|MOD_LGUI,KC_L),           MT(MOD_LCTL|MOD_LGUI,KC_SCOLON),LGUI_T(KC_QUOTE),
     KC_LSPO,        LCTL_T(KC_Z),   LGUI_T(KC_X),   LALT_T(KC_C),   LSA_T(KC_V),    KC_B,                                           KC_N,           LSA_T(KC_M),    RALT_T(KC_COMMA),RGUI_T(KC_DOT), RCTL_T(KC_SLASH),KC_RSPC,        
-    LT(1,KC_EQUAL), WEBUSB_PAIR,    LSFT(KC_CAPSLOCK),KC_LEFT,        KC_RIGHT,       LALT_T(KC_APPLICATION),                                                                                                LCTL_T(KC_ESCAPE),KC_UP,          KC_DOWN,        KC_LBRACKET,    KC_RBRACKET,    LCTL(LSFT(KC_F12)),
+    LT(1,KC_EQUAL), WEBUSB_PAIR,    LSFT(KC_CAPSLOCK),KC_LEFT,        KC_RIGHT,       LALT_T(KC_APPLICATION),                                                                                                LCTL_T(KC_ESCAPE),KC_BSLASH,          KC_DOWN,        KC_LBRACKET,    KC_RBRACKET,    LCTL(LSFT(KC_F12)),
     LT(3,KC_SPACE), LT(1,KC_BSPACE),KC_TAB,                         KC_LALT,        LT(1,KC_DELETE),LT(3,KC_ENTER)
   ),
   [1] = LAYOUT_moonlander(
