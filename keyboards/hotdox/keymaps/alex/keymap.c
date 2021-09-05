@@ -86,19 +86,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         KC_GRAVE,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_LEFT,
-        KC_TAB,        LCAG_T(KC_Q),         ALL_T(KC_W),   LCAG_T(KC_E),   MEH_T(KC_R),   LT(MDIA,KC_T),   TG(SYMB),
+        KC_TAB,        ALL_T(KC_Q),         LCAG_T(KC_W),   MT(MOD_LCTL|MOD_LGUI|MOD_LSFT,KC_E),   MEH_T(KC_R),   LT(MDIA,KC_T),   TG(SYMB),
         HYPR_T(KC_ESCAPE),        MT(MOD_LCTL|MOD_LGUI,KC_A),         MT(MOD_LALT|MOD_LGUI,KC_S),   SGUI_T(KC_D),   C_S_T(KC_F),   LCA_T(KC_G),
         KC_LSPO,        CTL_T(KC_Z),  GUI_T(KC_X),   ALT_T(KC_C),   MT(MOD_LSFT|MOD_LALT,KC_V),   LCA_T(KC_B),   SPLIT_LEFT,
-        LT(SYMB,KC_EQUAL),S(KC_MINUS),      S(KC_CAPSLOCK),  MO(6),MO(5),
+        LT(SYMB,KC_EQUAL), KC_UNDERSCORE,      KC_LBRACKET,  KC_RBRACKET, LT(SYMB,KC_KP_PLUS),
                                               ALT_T(KC_APP),  LT(MDIA,KC_LGUI),
                                                               KC_HOME,
                                                LT(3,KC_SPC),LT(SYMB,KC_BSPC),KC_END,
          // right hand
              KC_RGHT,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_MINS,
-             TG(SYMB),    LT(MDIA,KC_Y),   MEH_T(KC_U),  LCAG_T(KC_I),   ALL_T(KC_O),   LCAG_T(KC_P),             KC_BSLS,
+             TG(SYMB),    LT(MDIA,KC_Y),   MEH_T(KC_U),  MT(MOD_LCTL|MOD_LGUI|MOD_LSFT,KC_I),   LCAG_T(KC_O),   ALL_T(KC_P),             KC_BSLS,
                           LCA_T(KC_H),   C_S_T(KC_J),  SGUI_T(KC_K),   MT(MOD_LALT|MOD_LGUI,KC_L),   MT(MOD_LCTL|MOD_LGUI,KC_SCOLON),KC_QUOTE,
              SPLIT_RIGHT,LCA_T(KC_N),   MT(MOD_LSFT|MOD_LALT,KC_M),  RALT_T(KC_COMM),RGUI_T(KC_DOT), CTL_T(KC_SLSH),   KC_RSPC,
-                                  KC_BSLASH, KC_LEAD,S(KC_INSERT),C(S(KC_F11)),          C(S(KC_F12)),
+                                  LT(SYMB,KC_BSLASH), KC_LEAD,S(KC_INSERT),S(KC_CAPSLOCK),          C(S(KC_F12)),
              TG_4,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,LT(SYMB,KC_DELETE),LT(3,KC_ENT)
@@ -214,11 +214,19 @@ void matrix_scan_user(void) {
         tap_code16(S(KC_CAPSLOCK));
     }
 
+    SEQ_ONE_KEY(KC_E) {
+        tap_code16(KC_LBRC);
+        tap_code16(S(KC_LBRC));
+    }
+    SEQ_ONE_KEY(KC_R) {
+        tap_code16(KC_RBRC);
+        tap_code16(S(KC_RBRC));
+    }
+
     SEQ_ONE_KEY(KC_V) {
       //paste w/ shift+ins
         tap_code16(S(KC_INS));
     }
-
 
     SEQ_TWO_KEYS(KC_C, KC_C) {
       //copy w/ ctrl+shift+c
