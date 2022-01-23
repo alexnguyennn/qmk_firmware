@@ -8,11 +8,6 @@
 #define TG_4 TG(4) //keymapceditor bug?
 // #endregion
 
-// #region Split Toggle macro definitions
-void split_toggle(void);
-void split_left(void);
-void split_right(void);
-
 typedef struct {
   bool is_active;
 } toggle;
@@ -52,9 +47,6 @@ void ct_quot_reset (qk_tap_dance_state_t *state, void *user_data);
 
 enum custom_keycodes {
   VRSN = SAFE_RANGE,
-  SPLIT_TOGGLE,
-  SPLIT_LEFT,
-  SPLIT_RIGHT,
   EASYMOTION
 };
 
@@ -89,8 +81,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRAVE,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_LEFT,
         KC_TAB,        ALL_T(KC_Q),         LCAG_T(KC_W),   MT(MOD_LCTL|MOD_LGUI|MOD_LSFT,KC_E),   MEH_T(KC_R),   LT(MDIA,KC_T),   TG(SYMB),
         HYPR_T(KC_ESCAPE),        MT(MOD_LCTL|MOD_LGUI,KC_A),         MT(MOD_LALT|MOD_LGUI,KC_S),   SGUI_T(KC_D),   C_S_T(KC_F),   LCA_T(KC_G),
-        KC_LSPO,        CTL_T(KC_Z),  GUI_T(KC_X),   ALT_T(KC_C),   MT(MOD_LSFT|MOD_LALT,KC_V),   LCA_T(KC_B),   SPLIT_LEFT,
-        LT(SYMB,KC_EQUAL), KC_UNDERSCORE,      KC_LBRACKET,  KC_RBRACKET, LT(SYMB,KC_KP_PLUS),
+        KC_LSPO,        CTL_T(KC_Z),  GUI_T(KC_X),   ALT_T(KC_C),   MT(MOD_LSFT|MOD_LALT,KC_V),   LCA_T(KC_B),   KC_EQUAL,
+        LT(SYMB,KC_EQUAL), KC_UNDERSCORE,      EASYMOTION,  KC_LBRACKET, LT(SYMB,KC_RBRACKET),
                                               ALT_T(KC_APP),  LT(MDIA,KC_LGUI),
                                                               KC_HOME,
                                                LT(3,KC_SPC),LT(SYMB,KC_BSPC),EASYMOTION,
@@ -98,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_RGHT,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_MINS,
              TG(SYMB),    LT(MDIA,KC_Y),   MEH_T(KC_U),  MT(MOD_LCTL|MOD_LGUI|MOD_LSFT,KC_I),   LCAG_T(KC_O),   ALL_T(KC_P),             KC_BSLS,
                           LCA_T(KC_H),   C_S_T(KC_J),  SGUI_T(KC_K),   MT(MOD_LALT|MOD_LGUI,KC_L),   MT(MOD_LCTL|MOD_LGUI,KC_SCOLON),KC_QUOTE,
-             SPLIT_RIGHT,LCA_T(KC_N),   MT(MOD_LSFT|MOD_LALT,KC_M),  RALT_T(KC_COMM),RGUI_T(KC_DOT), CTL_T(KC_SLSH),   KC_RSPC,
+             KC_MINUS,LCA_T(KC_N),   MT(MOD_LSFT|MOD_LALT,KC_M),  RALT_T(KC_COMM),RGUI_T(KC_DOT), CTL_T(KC_SLSH),   KC_RSPC,
                                   LT(SYMB,KC_BSLASH), KC_LEAD,S(KC_INSERT),S(KC_CAPSLOCK),          C(S(KC_F12)),
              TG_4,        CTL_T(KC_ESC),
              KC_PGUP,
@@ -296,37 +288,12 @@ void matrix_scan_user(void) {
 // #endregion
 
 // #region process_record_user
-
-static toggle split_toggle_state = {
-  .is_active = false,
-};
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     // dynamically generate these.
     case VRSN:
       if (record->event.pressed) {
         SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-      }
-      return false;
-      break;
-    case SPLIT_TOGGLE:
-      if (record->event.pressed) {
-        split_toggle_state.is_active = split_toggle_state.is_active ? false : true;
-
-        split_toggle();
-      }
-      return false;
-      break;
-    case SPLIT_LEFT:
-      if (record->event.pressed) {
-        split_left();
-      }
-      return false;
-      break;
-    case SPLIT_RIGHT:
-      if (record->event.pressed) {
-        split_right();
       }
       return false;
       break;
@@ -345,21 +312,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // #region layer change code
 layer_state_t layer_state_set_user(layer_state_t state) {
+  // TODO: rebase and try out programmable button feature
   switch (get_highest_layer(state)) {
     case 4:
-      tap_code16(KC_F24);
       break;
     case 3:
-      tap_code16(KC_F23);
       break;
     case MDIA:
-      tap_code16(KC_F22);
       break;
     case SYMB:
-      tap_code16(KC_F21);
       break;
     default: //  for any other layers, or the default layer
-      tap_code16(KC_F20);
       break;
   }
 
@@ -494,60 +457,5 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 
 // #region macro helpers
-
-// #region Split toggle macro helpers
-void split_toggle() {
-  if (split_toggle_state.is_active) {
-      tap_code16(G(KC_UP));
-      tap_code16(G(KC_UP));
-      tap_code16(G(KC_LEFT));
-      tap_code16(C(G(KC_L)));
-      tap_code16(G(KC_UP));
-      tap_code16(G(KC_UP));
-      tap_code16(G(KC_RIGHT));
-      tap_code16(C(G(KC_H)));
-  } else {
-      tap_code16(G(KC_UP));
-      tap_code16(G(KC_UP));
-      tap_code16(C(G(KC_L)));
-      tap_code16(G(KC_UP));
-      tap_code16(G(KC_UP));
-      tap_code16(C(G(KC_H)));
-  }
-}
-
-void split_left() {
-  if (split_toggle_state.is_active) {
-      tap_code16(G(KC_UP));
-      tap_code16(G(KC_UP));
-      tap_code16(C(G(KC_L)));
-      tap_code16(G(KC_UP));
-      tap_code16(G(KC_UP));
-      tap_code16(C(G(KC_H)));
-      tap_code16(G(KC_RIGHT));
-      tap_code16(C(G(KC_H)));
-      tap_code16(G(KC_LEFT));
-  } else {
-      tap_code16(C(G(KC_H)));
-  }
-}
-
-void split_right() {
-  if (split_toggle_state.is_active) {
-      tap_code16(G(KC_UP));
-      tap_code16(G(KC_UP));
-      tap_code16(C(G(KC_L)));
-      tap_code16(G(KC_UP));
-      tap_code16(G(KC_UP));
-      tap_code16(G(KC_LEFT));
-      tap_code16(C(G(KC_L)));
-      tap_code16(G(KC_RIGHT));
-      tap_code16(C(G(KC_H)));
-  } else {
-      tap_code16(C(G(KC_L)));
-  }
-}
-
-// #endregion 
 
 // #endregion 
