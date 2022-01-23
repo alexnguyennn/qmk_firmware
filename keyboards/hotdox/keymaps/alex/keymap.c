@@ -31,7 +31,7 @@ enum {
   DOUBLE_HOLD = 4,
   DOUBLE_SINGLE_TAP = 5, //send two single taps
   TRIPLE_TAP = 6,
-  TRIPLE_HOLD = 7
+  TRIPLE_HOLD = 7,
 };
 
 //Tap dance enums
@@ -54,7 +54,8 @@ enum custom_keycodes {
   VRSN = SAFE_RANGE,
   SPLIT_TOGGLE,
   SPLIT_LEFT,
-  SPLIT_RIGHT
+  SPLIT_RIGHT,
+  EASYMOTION
 };
 
 // #region keymap 
@@ -92,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LT(SYMB,KC_EQUAL), KC_UNDERSCORE,      KC_LBRACKET,  KC_RBRACKET, LT(SYMB,KC_KP_PLUS),
                                               ALT_T(KC_APP),  LT(MDIA,KC_LGUI),
                                                               KC_HOME,
-                                               LT(3,KC_SPC),LT(SYMB,KC_BSPC),KC_END,
+                                               LT(3,KC_SPC),LT(SYMB,KC_BSPC),EASYMOTION,
          // right hand
              KC_RGHT,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_MINS,
              TG(SYMB),    LT(MDIA,KC_Y),   MEH_T(KC_U),  MT(MOD_LCTL|MOD_LGUI|MOD_LSFT,KC_I),   LCAG_T(KC_O),   ALL_T(KC_P),             KC_BSLS,
@@ -101,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                   LT(SYMB,KC_BSLASH), KC_LEAD,S(KC_INSERT),S(KC_CAPSLOCK),          C(S(KC_F12)),
              TG_4,        CTL_T(KC_ESC),
              KC_PGUP,
-             KC_PGDN,LT(SYMB,KC_DELETE),LT(3,KC_ENT)
+             EASYMOTION,LT(SYMB,KC_DELETE),LT(3,KC_ENT)
     ),
 /* Keymap 1: Symbol Layer
  *
@@ -128,10 +129,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [SYMB] = LAYOUT_ergodox(
        // left hand
        VRSN,   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_TRNS,
-       KC_TRNS,KC_EXLM,KC_AT,  KC_LCBR,KC_RCBR,KC_PIPE,KC_TRNS,
-       KC_CAPSLOCK,KC_HASH,KC_DLR, S(KC_COMMA),S(KC_DOT),KC_GRV,
-       KC_TRNS,KC_PERC,KC_CIRC,KC_LBRC,KC_RBRC,KC_TILD,KC_TRNS,
-       EEP_RST,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+       KC_GRAVE,KC_EXLM,KC_AT,  KC_LCBR,KC_RCBR,KC_PIPE,KC_TRNS,
+       KC_CAPSLOCK,KC_HASH,KC_DLR, S(KC_COMMA),S(KC_DOT),KC_MINUS,
+       KC_TRNS,KC_PERC,KC_CIRC,KC_LBRC,KC_RBRC,KC_EQUAL,KC_TRNS,
+       EEP_RST,KC_TRNS,KC_TRNS,KC_GRV,KC_TILD,
                                        KC_TRNS,KC_TRNS,
                                                KC_TRNS,
                                KC_TRNS,KC_TRNS,KC_TRNS,
@@ -328,6 +329,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         split_right();
       }
       return false;
+      break;
+    case EASYMOTION:
+      if (record->event.pressed) {
+        tap_code(KC_G);
+        tap_code(KC_S);
+      }
       break;
 
   }
