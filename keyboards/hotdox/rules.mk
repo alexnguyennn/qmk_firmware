@@ -17,6 +17,7 @@ SWAP_HANDS_ENABLE       = no  # Disable Onehand
 MIDI_ENABLE             = no
 TAP_DANCE_ENABLE = yes
 LEADER_ENABLE = yes
+PROGRAMMABLE_BUTTON_ENABLE = yes
 
 # project specific files
 SRC =  matrix.c     \

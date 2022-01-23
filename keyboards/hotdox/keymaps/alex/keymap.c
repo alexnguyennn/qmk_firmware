@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
+#include "programmable_button.h"
 
 // #region #defines
 #define BASE 0 // default layer
@@ -312,17 +313,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // #region layer change code
 layer_state_t layer_state_set_user(layer_state_t state) {
-  // TODO: rebase and try out programmable button feature
+  // programmable buttons - PG_14 maps to F24 on windows; highest mappable fkey
+  // everything else above doesn't get mapped on win
   switch (get_highest_layer(state)) {
     case 4:
+      // win: F24
+      tap_code16(PB_14); 
       break;
     case 3:
+      // win: F23
+      tap_code16(PB_13); 
       break;
     case MDIA:
+      // win: F22
+      tap_code16(PB_12); 
       break;
     case SYMB:
+      // win: F21
+      tap_code16(PB_11);
       break;
     default: //  for any other layers, or the default layer
+      // win: F20
+      tap_code16(PB_10);
       break;
   }
 
