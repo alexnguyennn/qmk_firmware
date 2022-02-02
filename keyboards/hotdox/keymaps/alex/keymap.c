@@ -82,10 +82,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRAVE,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_LEFT,
         KC_TAB,        ALL_T(KC_Q),         LCAG_T(KC_W),   MT(MOD_LCTL|MOD_LGUI|MOD_LSFT,KC_E),   MEH_T(KC_R),   LT(MDIA,KC_T),   TG(SYMB),
         HYPR_T(KC_ESCAPE),        MT(MOD_LCTL|MOD_LGUI,KC_A),         MT(MOD_LALT|MOD_LGUI,KC_S),   SGUI_T(KC_D),   C_S_T(KC_F),   LCA_T(KC_G),
-        KC_LSPO,        CTL_T(KC_Z),  GUI_T(KC_X),   ALT_T(KC_C),   MT(MOD_LSFT|MOD_LALT,KC_V),   LCA_T(KC_B),   KC_EQUAL,
+        KC_LSPO,        CTL_T(KC_Z),  GUI_T(KC_X),   ALT_T(KC_C),   MT(MOD_LSFT|MOD_LALT,KC_V),   LCA_T(KC_B),   KC_KP_PLUS,
         LT(SYMB,KC_EQUAL), KC_UNDERSCORE,      EASYMOTION,  KC_LBRACKET, LT(SYMB,KC_RBRACKET),
                                               ALT_T(KC_APP),  LT(MDIA,KC_LGUI),
-                                                              KC_HOME,
+                                                              DT_UP,
                                                LT(3,KC_SPC),LT(SYMB,KC_BSPC),EASYMOTION,
          // right hand
              KC_RGHT,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_MINS,
@@ -93,8 +93,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           LCA_T(KC_H),   C_S_T(KC_J),  SGUI_T(KC_K),   MT(MOD_LALT|MOD_LGUI,KC_L),   MT(MOD_LCTL|MOD_LGUI,KC_SCOLON),KC_QUOTE,
              KC_MINUS,LCA_T(KC_N),   MT(MOD_LSFT|MOD_LALT,KC_M),  RALT_T(KC_COMM),RGUI_T(KC_DOT), CTL_T(KC_SLSH),   KC_RSPC,
                                   LT(SYMB,KC_BSLASH), KC_LEAD,S(KC_INSERT),S(KC_CAPSLOCK),          C(S(KC_F12)),
-             TG_4,        CTL_T(KC_ESC),
-             KC_PGUP,
+             TG_4,        DT_PRNT,
+             DT_DOWN,
              EASYMOTION,LT(SYMB,KC_DELETE),LT(3,KC_ENT)
     ),
 /* Keymap 1: Symbol Layer
@@ -315,28 +315,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 layer_state_t layer_state_set_user(layer_state_t state) {
   // programmable buttons - PG_14 maps to F24 on windows; highest mappable fkey
   // everything else above doesn't get mapped on win
-  switch (get_highest_layer(state)) {
-    case 4:
-      // win: F24
-      tap_code16(PB_14); 
-      break;
-    case 3:
-      // win: F23
-      tap_code16(PB_13); 
-      break;
-    case MDIA:
-      // win: F22
-      tap_code16(PB_12); 
-      break;
-    case SYMB:
-      // win: F21
-      tap_code16(PB_11);
-      break;
-    default: //  for any other layers, or the default layer
-      // win: F20
-      tap_code16(PB_10);
-      break;
-  }
+  // toggle until linux compat is figured out
+  // switch (get_highest_layer(state)) {
+  //   case 4:
+  //     // win: F24
+  //     tap_code16(PB_14); 
+  //     break;
+  //   case 3:
+  //     // win: F23
+  //     tap_code16(PB_13); 
+  //     break;
+  //   case MDIA:
+  //     // win: F22
+  //     tap_code16(PB_12); 
+  //     break;
+  //   case SYMB:
+  //     // win: F21
+  //     tap_code16(PB_11);
+  //     break;
+  //   default: //  for any other layers, or the default layer
+  //     // win: F20
+  //     tap_code16(PB_10);
+  //     break;
+  // }
 
   return state;
 }
@@ -347,9 +348,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     // shift easier to reach, reduce misinterpreting shift+x as (x taps
     case KC_LSPO || KC_RSPC:
-      return TAPPING_TERM - 90;
+      return g_tapping_term - 150;
     default:
-      return TAPPING_TERM;
+      return g_tapping_term;
   }
 }
 // #endregion

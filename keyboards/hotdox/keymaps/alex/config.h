@@ -2,8 +2,11 @@
 
 // place overrides here
 // override this value if run into typing speed limitations
+
+// used dynamic tap term to find
+// ; 415 start modifying too much; 425 capitilising starts to fail
 #undef TAPPING_TERM
-#define TAPPING_TERM    200
+#define TAPPING_TERM    425
 
 #define PERMISSIVE_HOLD
 
