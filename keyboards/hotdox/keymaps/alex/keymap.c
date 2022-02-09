@@ -16,33 +16,35 @@ typedef struct {
 // #endregion
 
 // #region Tapdance definitions
-typedef struct {
-  int state;
-} tap;
-
-enum {
-  SINGLE_TAP = 1,
-  SINGLE_HOLD = 2,
-  DOUBLE_TAP = 3,
-  DOUBLE_HOLD = 4,
-  DOUBLE_SINGLE_TAP = 5, //send two single taps
-  TRIPLE_TAP = 6,
-  TRIPLE_HOLD = 7,
+// Tap Dance keycodes
+enum td_keycodes {
+    SYMB_TAP, // 
+    SYMB_TAP_RBRK // same as above, just enters ] on tap
 };
 
-//Tap dance enums
-enum {
-  CT_CLN = 0,
-  CT_QUOT = 1,
-};
+// Define a type containing as many tapdance states as you need
+typedef enum {
+    TD_NONE,
+    TD_UNKNOWN,
+    TD_SINGLE_TAP,
+    TD_SINGLE_HOLD,
+    TD_DOUBLE_SINGLE_TAP
+} td_state_t;
 
-int cur_dance (qk_tap_dance_state_t *state);
+// Create a global instance of the tapdance state type
+static td_state_t td_state;
 
-//for the x tap dance. Put it here so it can be used in any keymap
-void ct_cln_finished (qk_tap_dance_state_t *state, void *user_data);
-void ct_cln_reset (qk_tap_dance_state_t *state, void *user_data);
-void ct_quot_finished (qk_tap_dance_state_t *state, void *user_data);
-void ct_quot_reset (qk_tap_dance_state_t *state, void *user_data);
+// Declare your tapdance functions:
+
+// Function to determine the current tapdance state
+td_state_t cur_dance(qk_tap_dance_state_t *state);
+
+// `finished` and `reset` functions for each tapdance keycode
+void symbtap_finished(qk_tap_dance_state_t *state, void *user_data);
+void symbtap_reset(qk_tap_dance_state_t *state, void *user_data);
+
+void symbtaprbrk_finished(qk_tap_dance_state_t *state, void *user_data);
+void symbtaprbrk_reset(qk_tap_dance_state_t *state, void *user_data);
 
 //#endregion
 
@@ -83,16 +85,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,        ALL_T(KC_Q),         LCAG_T(KC_W),   MT(MOD_LCTL|MOD_LGUI|MOD_LSFT,KC_E),   MEH_T(KC_R),   LT(MDIA,KC_T),   TG(SYMB),
         HYPR_T(KC_ESCAPE),        MT(MOD_LCTL|MOD_LGUI,KC_A),         MT(MOD_LALT|MOD_LGUI,KC_S),   SGUI_T(KC_D),   C_S_T(KC_F),   LCA_T(KC_G),
         KC_LSPO,        CTL_T(KC_Z),  GUI_T(KC_X),   ALT_T(KC_C),   MT(MOD_LSFT|MOD_LALT,KC_V),   LCA_T(KC_B),   KC_KP_PLUS,
-        LT(SYMB,KC_EQUAL), KC_UNDERSCORE,      EASYMOTION,  KC_LBRACKET, LT(SYMB,KC_RBRACKET),
+        LT(SYMB,KC_EQUAL), KC_UNDERSCORE,      EASYMOTION,  KC_LBRACKET, TD(SYMB_TAP_RBRK),
                                               ALT_T(KC_APP),  LT(MDIA,KC_LGUI),
                                                               DT_UP,
                                                LT(3,KC_SPC),LT(SYMB,KC_BSPC),EASYMOTION,
          // right hand
              KC_RGHT,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_MINS,
-             TG(SYMB),    LT(MDIA,KC_Y),   MEH_T(KC_U),  MT(MOD_LCTL|MOD_LGUI|MOD_LSFT,KC_I),   LCAG_T(KC_O),   ALL_T(KC_P),             KC_BSLS,
+             KC_LEAD,    LT(MDIA,KC_Y),   MEH_T(KC_U),  MT(MOD_LCTL|MOD_LGUI|MOD_LSFT,KC_I),   LCAG_T(KC_O),   ALL_T(KC_P),             KC_BSLS,
                           LCA_T(KC_H),   C_S_T(KC_J),  SGUI_T(KC_K),   MT(MOD_LALT|MOD_LGUI,KC_L),   MT(MOD_LCTL|MOD_LGUI,KC_SCOLON),KC_QUOTE,
              KC_MINUS,LCA_T(KC_N),   MT(MOD_LSFT|MOD_LALT,KC_M),  RALT_T(KC_COMM),RGUI_T(KC_DOT), CTL_T(KC_SLSH),   KC_RSPC,
-                                  LT(SYMB,KC_BSLASH), KC_LEAD,S(KC_INSERT),S(KC_CAPSLOCK),          C(S(KC_F12)),
+                                  TD(SYMB_TAP), C(KC_B),S(KC_INSERT),S(KC_CAPSLOCK),          C(S(KC_F12)),
              TG_4,        DT_PRNT,
              DT_DOWN,
              EASYMOTION,LT(SYMB,KC_DELETE),LT(3,KC_ENT)
@@ -122,7 +124,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [SYMB] = LAYOUT_ergodox(
        // left hand
        KC_CAPSLOCK,   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_TRNS,
-       KC_GRAVE,KC_EXLM,KC_AT,  KC_LCBR,KC_RCBR,KC_PIPE,KC_TRNS,
+       KC_GRAVE,KC_EXLM,KC_AT,  KC_LCBR,KC_RCBR,KC_PLUS,KC_TRNS,
        KC_GRAVE,KC_HASH,KC_DLR, S(KC_COMMA),S(KC_DOT),KC_MINUS,
        KC_TRNS,KC_PERC,KC_CIRC,KC_LBRC,KC_RBRC,KC_EQUAL,KC_TRNS,
        EEP_RST,KC_TRNS,KC_TRNS,KC_GRV,KC_TILD,
@@ -131,8 +133,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
        KC_TRNS, KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  KC_F11,
-       KC_TRNS, KC_UP,   KC_7,   KC_8,    KC_9,    KC_EQUAL, KC_F12,
-                KC_DOWN, KC_4,   KC_5,    KC_6,    KC_PLUS, KC_ENTER,
+       KC_TRNS, KC_PIPE,   KC_7,   KC_8,    KC_9,    KC_EQUAL, KC_F12,
+                KC_EQUAL, KC_4,   KC_5,    KC_6,    KC_PLUS, KC_ENTER,
        KC_TRNS, KC_AMPR, KC_1,   KC_2,    KC_3,    KC_BSLS, KC_TRNS,
                          KC_TRNS,KC_DOT,  KC_0,    KC_ASTR,  KC_TRNS,
        KC_TRNS, KC_TRNS,
@@ -349,6 +351,10 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     // shift easier to reach, reduce misinterpreting shift+x as (x taps
     case KC_LSPO || KC_RSPC:
       return g_tapping_term - 150;
+    case TD(SYMB_TAP): // here just to demo can modify tapdance term too
+      return g_tapping_term + 40;
+    case TD(SYMB_TAP_RBRK): // here just to demo can modify tapdance term too
+      return g_tapping_term + 40;
     default:
       return g_tapping_term;
   }
@@ -356,116 +362,96 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 // #endregion
 
 // #region tapdance implementations
-/* Return an integer that corresponds to what kind of tap dance should be executed.
- *
- * How to figure out tap dance state: interrupted and pressed.
- *
- * Interrupted: If the state of a dance dance is "interrupted", that means that another key has been hit
- *  under the tapping term. This is typically indicitive that you are trying to "tap" the key.
- *
- * Pressed: Whether or not the key is still being pressed. If this value is true, that means the tapping term
- *  has ended, but the key is still being pressed down. This generally means the key is being "held".
- *
- * One thing that is currently not possible with qmk software in regards to tap dance is to mimic the "permissive hold"
- *  feature. In general, advanced tap dances do not work well if they are used with commonly typed letters.
- *  For example "A". Tap dances are best used on non-letter keys that are not hit while typing letters.
- *
- * Good places to put an advanced tap dance:
- *  z,q,x,j,k,v,b, any function key, home/end, comma, semi-colon
- *
- * Criteria for "good placement" of a tap dance key:
- *  Not a key that is hit frequently in a sentence
- *  Not a key that is used frequently to double tap, for example 'tab' is often double tapped in a terminal, or
- *    in a web form. So 'tab' would be a poor choice for a tap dance.
- *  Letters used in common words as a double. For example 'p' in 'pepper'. If a tap dance function existed on the
- *    letter 'p', the word 'pepper' would be quite frustating to type.
- *
- * For the third point, there does exist the 'DOUBLE_SINGLE_TAP', however this is not fully tested
- *
- */
-int cur_dance (qk_tap_dance_state_t *state) {
-  if (state->count == 1) {
-    if (state->interrupted || !state->pressed)  return SINGLE_TAP;
-    //key has not been interrupted, but they key is still held. Means you want to send a 'HOLD'.
-    else return SINGLE_HOLD;
-  }
-  else if (state->count == 2) {
-    /*
-     * DOUBLE_SINGLE_TAP is to distinguish between typing "pepper", and actually wanting a double tap
-     * action when hitting 'pp'. Suggested use case for this return value is when you want to send two
-     * keystrokes of the key, and not the 'double tap' action/macro.
-    */
-    if (state->interrupted) return DOUBLE_SINGLE_TAP;
-    else if (state->pressed) return DOUBLE_HOLD;
-    else return DOUBLE_TAP;
-  }
-  //Assumes no one is trying to type the same letter three times (at least not quickly).
-  //If your tap dance key is 'KC_W', and you want to type "www." quickly - then you will need to add
-  //an exception here to return a 'TRIPLE_SINGLE_TAP', and define that enum just like 'DOUBLE_SINGLE_TAP'
-  if (state->count == 3) {
-    if (state->interrupted || !state->pressed)  return TRIPLE_TAP;
-    else return TRIPLE_HOLD;
-  }
-  else return 8; //magic number. At some point this method will expand to work for more presses
+// Determine the tapdance state to return
+td_state_t cur_dance(qk_tap_dance_state_t *state) {
+    if (state->count == 1) {
+        if (state->interrupted || !state->pressed) return TD_SINGLE_TAP;
+        else return TD_SINGLE_HOLD;
+    }
+
+    if (state->count == 2) return TD_DOUBLE_SINGLE_TAP;
+    else return TD_UNKNOWN; // Any number higher than the maximum state value you return above
 }
 
-// #region ct_cln fns : single, ; double
-//instantiate an instance of 'tap' for the 'x' tap dance.
-static tap cln_tap = {
-  .state = 0
-};
+// Handle the possible states for each tapdance keycode you define:
 
-void ct_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
-  cln_tap.state = cur_dance(state);
-  switch (cln_tap.state) {
-    case SINGLE_TAP: register_code(KC_SCLN); break;
-    case SINGLE_HOLD: register_mods(MOD_LCTL | MOD_LGUI); break;
-    case DOUBLE_TAP: register_code16(S(KC_SCLN)); break;
-    case DOUBLE_SINGLE_TAP: register_code(KC_SCLN); unregister_code(KC_SCLN); register_code(KC_SCLN);
-    //Last case is for fast typing. Assuming your key is `f`:
-    //For example, when typing the word `buffer`, and you want to make sure that you send `ff` and not `Esc`.
-    //In order to type `ff` when typing fast, the next character will have to be hit within the `TAPPING_TERM`, which by default is 200ms.
+void symbtap_finished(qk_tap_dance_state_t *state, void *user_data) {
+    td_state = cur_dance(state);
+    switch (td_state) {
+        case TD_SINGLE_TAP:
+            register_code(KC_BACKSLASH);
+            break;
+        case TD_SINGLE_HOLD:
+            layer_on(SYMB);
+            break;
+        case TD_DOUBLE_SINGLE_TAP: // Ctrl+B: tmux prefix
+            register_mods(MOD_BIT(KC_LCTL)); 
+            register_code(KC_B);
+            break;
+        default:
+            break;
     }
 }
 
-void ct_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
-  switch (cln_tap.state) {
-    case SINGLE_TAP: unregister_code(KC_SCLN); break;
-    case SINGLE_HOLD: unregister_mods(MOD_LCTL | MOD_LGUI); break;
-    case DOUBLE_TAP: unregister_code16(S(KC_SCLN)); break;
-    case DOUBLE_SINGLE_TAP: unregister_code(KC_SCLN);
-  }
-  cln_tap.state = 0;
-}
-// #endregion
-
-// #region ct_quot fns(; ' single, "" double
-void ct_quot_finished (qk_tap_dance_state_t *state, void *user_data) {
-  switch (cur_dance(state)) {
-    case SINGLE_TAP: register_code(KC_QUOTE); break;
-    case DOUBLE_TAP: register_code16(S(KC_QUOTE)); break;
-    case DOUBLE_SINGLE_TAP: register_code(KC_QUOTE); unregister_code(KC_QUOTE); register_code(KC_QUOTE);
-    //Last case is for fast typing. Assuming your key is `f`:
-    //For example, when typing the word `buffer`, and you want to make sure that you send `ff` and not `Esc`.
-    //In order to type `ff` when typing fast, the next character will have to be hit within the `TAPPING_TERM`, which by default is 200ms.
-  }
+void symbtap_reset(qk_tap_dance_state_t *state, void *user_data) {
+    switch (td_state) {
+        case TD_SINGLE_TAP:
+            unregister_code(KC_BACKSLASH);
+            break;
+        case TD_SINGLE_HOLD:
+            layer_off(SYMB);
+            break;
+        case TD_DOUBLE_SINGLE_TAP:
+            unregister_mods(MOD_BIT(KC_LCTL)); 
+            unregister_code(KC_B);
+            break;
+        default:
+            break;
+    }
 }
 
-void ct_quot_reset (qk_tap_dance_state_t *state, void *user_data) {
-  switch (cur_dance(state)) {
-    case SINGLE_TAP: unregister_code(KC_QUOTE); break;
-    case DOUBLE_TAP: unregister_code16(S(KC_QUOTE)); break;
-    case DOUBLE_SINGLE_TAP: unregister_code(KC_QUOTE);
-  }
+void symbtaprbrk_finished(qk_tap_dance_state_t *state, void *user_data) {
+    td_state = cur_dance(state);
+    switch (td_state) {
+        case TD_SINGLE_TAP:
+            register_code(KC_RBRACKET);
+            break;
+        case TD_SINGLE_HOLD:
+            layer_on(SYMB);
+            break;
+        case TD_DOUBLE_SINGLE_TAP: // Ctrl+B: tmux prefix
+            register_mods(MOD_BIT(KC_LCTL)); 
+            register_code(KC_B);
+            break;
+        default:
+            break;
+    }
+}
+
+void symbtaprbrk_reset(qk_tap_dance_state_t *state, void *user_data) {
+    switch (td_state) {
+        case TD_SINGLE_TAP:
+            unregister_code(KC_RBRACKET);
+            break;
+        case TD_SINGLE_HOLD:
+            layer_off(SYMB);
+            break;
+        case TD_DOUBLE_SINGLE_TAP:
+            unregister_mods(MOD_BIT(KC_LCTL)); 
+            unregister_code(KC_B);
+            break;
+        default:
+            break;
+    }
 }
 
 
-// #endregion
-
+// Define `ACTION_TAP_DANCE_FN_ADVANCED()` for each tapdance keycode, passing in `finished` and `reset` functions
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [CT_CLN]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,ct_cln_finished, ct_cln_reset),
-  [CT_QUOT]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,ct_quot_finished, ct_quot_reset),
+    [SYMB_TAP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, symbtap_finished, symbtap_reset),
+    [SYMB_TAP_RBRK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, symbtaprbrk_finished, symbtaprbrk_reset),
 };
+
 //#endregion
 
 
