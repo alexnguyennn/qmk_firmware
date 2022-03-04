@@ -47,9 +47,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_moonlander(
     KC_GRAVE,       KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           TG(1),                                        TG(4),       KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINUS,       
     KC_TAB,         ALL_T(KC_Q),           LCAG_T(KC_W),           MT(MOD_LCTL|MOD_LGUI|MOD_LSFT,KC_E),           MEH_T(KC_R),LT(2,KC_T),     TG(1),                                          TG(1),          LT(2,KC_Y),     MEH_T(KC_U),MT(MOD_LCTL|MOD_LGUI|MOD_LSFT,KC_I),           LCAG_T(KC_O),           ALL_T(KC_P),           KC_BSLASH,      
-    HYPR_T(KC_ESCAPE),MT(MOD_LCTL|MOD_LGUI,KC_A),           MT(MOD_LALT|MOD_LGUI,KC_S),           SGUI_T(KC_D),   C_S_T(KC_F),    LCA_T(KC_G),    KC_HYPR,                                                                        KC_MEH,         LCA_T(KC_H),    C_S_T(KC_J),    SGUI_T(KC_K),   MT(MOD_LALT|MOD_LGUI,KC_L),           MT(MOD_LCTL|MOD_LGUI,KC_SCOLON),LGUI_T(KC_QUOTE),
+    HYPR_T(KC_ESCAPE),MT(MOD_LCTL|MOD_LGUI,KC_A),           MT(MOD_LALT|MOD_LGUI,KC_S),           SGUI_T(KC_D),   C_S_T(KC_F),    LCA_T(KC_G),    C(KC_B),                                                                        C(KC_B),         LCA_T(KC_H),    C_S_T(KC_J),    SGUI_T(KC_K),   MT(MOD_LALT|MOD_LGUI,KC_L),           MT(MOD_LCTL|MOD_LGUI,KC_SCOLON),LGUI_T(KC_QUOTE),
     KC_LSPO,        CTL_T(KC_Z),   GUI_T(KC_X),   ALT_T(KC_C),   LSA_T(KC_V),    KC_B,                                           KC_N,           LSA_T(KC_M),    RALT_T(KC_COMMA),RGUI_T(KC_DOT), CTL_T(KC_SLSH),KC_RSPC,        
-    LT(1,KC_EQUAL), KC_UNDERSCORE,    KC_KP_PLUS,KC_LBRC,        LT(1,KC_RBRC),       LALT_T(KC_APPLICATION),                                                                                                LCTL_T(KC_ESCAPE),LT(1,KC_BSLASH),          KC_DOWN,        S(KC_INSERT),    S(KC_CAPSLOCK),    LCTL(LSFT(KC_F12)),
+    LT(1,KC_EQUAL), KC_UNDERSCORE,    KC_KP_PLUS,KC_LBRC,        LT(1,KC_RBRC),       LALT_T(KC_APPLICATION),                                                                                                LCTL_T(KC_ESCAPE),LT(1,KC_BSLASH),          C(KC_B),        S(KC_INSERT),    S(KC_CAPSLOCK),    LCTL(LSFT(KC_F12)),
     LT(3,KC_SPACE), LT(1,KC_BSPACE),EASYMOTION,                         EASYMOTION,        LT(1,KC_DELETE),LT(3,KC_ENTER)
   ),
   [1] = LAYOUT_moonlander(
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-extern bool g_suspend_state;
+//extern bool g_suspend_state;
 extern rgb_config_t rgb_matrix_config;
 
 void keyboard_post_init_user(void) {
@@ -120,7 +120,8 @@ void set_layer_color(int layer) {
 }
 
 void rgb_matrix_indicators_user(void) {
-  if (g_suspend_state || keyboard_config.disable_layer_led) { return; }
+  //if (g_suspend_state || keyboard_config.disable_layer_led) { return; }
+  if (keyboard_config.disable_layer_led) { return; }
   switch (biton32(layer_state)) {
     case 0:
       set_layer_color(0);
