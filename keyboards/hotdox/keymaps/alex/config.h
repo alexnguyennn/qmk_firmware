@@ -18,7 +18,7 @@ If the IGNORE_MOD_TAP_INTERRUPT option is enabled, Mod Tap keys are no gklonger 
 
 #define TAPPING_TERM_PER_KEY
 
-#undef TAP_CODE_DELAY 
+#undef TAP_CODE_DELAY
 #define TAP_CODE_DELAY 50
 
 #undef LEADER_TIMEOUT
@@ -63,3 +63,5 @@ If the IGNORE_MOD_TAP_INTERRUPT option is enabled, Mod Tap keys are no gklonger 
 #define NO_ACTION_FUNCTION
 // #undef DEBUG_MATRIX_SCAN_RATE
 // #define DEBUG_MATRIX_SCAN_RATE
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+#define CAPS_WORD_IDLE_TIMEOUT 3000 // 5 seconds is the default.
