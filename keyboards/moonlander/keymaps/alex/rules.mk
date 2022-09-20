@@ -10,3 +10,5 @@ RGB_MATRIX_ENABLE = yes
 
 # link time optimisation enable
 LTO_ENABLE = yes
+
+CAPS_WORD_ENABLE = yes

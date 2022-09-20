@@ -15,16 +15,15 @@
 
 #define TAPPING_TERM_PER_KEY
 
-// #undef TAP_CODE_DELAY 
+// #undef TAP_CODE_DELAY
 // #define TAP_CODE_DELAY 50
-
 
 #undef MOUSEKEY_INTERVAL
 #define MOUSEKEY_INTERVAL 16 // 1/60 = 16
 
-#undef MOUSEKEY_DELAY          
+#undef MOUSEKEY_DELAY
 #define MOUSEKEY_DELAY          0
-#undef MOUSEKEY_WHEEL_DELAY    
+#undef MOUSEKEY_WHEEL_DELAY
 #define MOUSEKEY_WHEEL_DELAY    0
 
 #undef MOUSEKEY_MAX_SPEED
@@ -34,3 +33,6 @@
 #define MOUSEKEY_TIME_TO_MAX 0
 
 #define MK_MOMENTARY_ACCEL
+
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+#define CAPS_WORD_IDLE_TIMEOUT 3000 // 5 seconds is the default.
