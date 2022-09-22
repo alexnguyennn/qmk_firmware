@@ -93,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_RGHT,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_MINS,
              KC_LEAD,    LT(MDIA,KC_Y),   MEH_T(KC_U),  MT(MOD_RALT|MOD_RGUI|MOD_RSFT,KC_I),   LCAG_T(KC_O),   MT(MOD_RCTL|MOD_RGUI|MOD_RSFT,KC_P),             KC_BSLS,
                           LCA_T(KC_H),   C_S_T(KC_J),  SGUI_T(KC_K),   MT(MOD_RALT|MOD_RGUI,KC_L),   MT(MOD_RCTL|MOD_RGUI,KC_SCOLON),KC_QUOTE,
-             C(KC_UNDERSCORE),LCA_T(KC_N),   MT(MOD_RSFT|MOD_RALT,KC_M),  RALT_T(KC_COMM),RGUI_T(KC_DOT), CTL_T(KC_SLSH),   KC_RSPC,
+             C(KC_UNDERSCORE),LCA_T(KC_N),   MT(MOD_RSFT|MOD_RALT,KC_M),  ALT_T(KC_COMM),GUI_T(KC_DOT), CTL_T(KC_SLSH),   KC_RSPC,
                                   TD(SYMB_TAP), C(KC_B),S(KC_INSERT),CAPS_WORD,          C(S(KC_F12)),
              TG_4,        DT_PRNT,
              DT_DOWN,
