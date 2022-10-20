@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,        MT(MOD_LCTL|MOD_LGUI|MOD_LSFT,KC_Q),         LCAG_T(KC_W),   MT(MOD_LALT|MOD_LGUI|MOD_LSFT,KC_E),   MEH_T(KC_R),   LT(MDIA,KC_T),   TG(SYMB),
         HYPR_T(KC_ESCAPE),        MT(MOD_LCTL|MOD_LGUI,KC_A),         MT(MOD_LALT|MOD_LGUI,KC_S),   SGUI_T(KC_D),   C_S_T(KC_F),   LCA_T(KC_G),
         KC_LSPO,        CTL_T(KC_Z),  GUI_T(KC_X),   ALT_T(KC_C),   MT(MOD_LSFT|MOD_LALT,KC_V),   LCA_T(KC_B),   C(KC_UNDERSCORE),
-        LT(SYMB,KC_EQUAL), KC_UNDERSCORE,      EASYMOTION,  KC_LBRACKET, TD(SYMB_TAP_RBRK),
+        LT(SYMB,KC_EQUAL), KC_UNDERSCORE,      EASYMOTION,  KC_LBRACKET, LT(1,KC_RBRC),
                                               ALT_T(KC_APP),  LT(MDIA,KC_LGUI),
                                                               DT_UP,
                                                LT(3,KC_SPC),LT(SYMB,KC_BSPC),EASYMOTION,
@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_LEAD,    LT(MDIA,KC_Y),   MEH_T(KC_U),  MT(MOD_RALT|MOD_RGUI|MOD_RSFT,KC_I),   LCAG_T(KC_O),   MT(MOD_RCTL|MOD_RGUI|MOD_RSFT,KC_P),             KC_BSLS,
                           LCA_T(KC_H),   C_S_T(KC_J),  SGUI_T(KC_K),   MT(MOD_RALT|MOD_RGUI,KC_L),   MT(MOD_RCTL|MOD_RGUI,KC_SCOLON),KC_QUOTE,
              C(KC_UNDERSCORE),LCA_T(KC_N),   MT(MOD_RSFT|MOD_RALT,KC_M),  ALT_T(KC_COMM),GUI_T(KC_DOT), CTL_T(KC_SLSH),   KC_RSPC,
-                                  TD(SYMB_TAP), C(KC_B),S(KC_INSERT),CAPS_WORD,          C(S(KC_F12)),
+                                  LT(1,KC_BACKSLASH), C(KC_B),S(KC_INSERT),CAPS_WORD,          C(S(KC_F12)),
              TG_4,        DT_PRNT,
              DT_DOWN,
              EASYMOTION,LT(SYMB,KC_DELETE),LT(3,KC_ENT)
