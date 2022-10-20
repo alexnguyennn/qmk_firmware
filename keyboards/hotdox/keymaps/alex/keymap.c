@@ -358,17 +358,17 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 // #region custom tapping termination time implementation
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    // shift easier to reach, reduce misinterpreting shift+x as (x taps
-    case KC_LSPO || KC_RSPC:
-      return g_tapping_term - 150;
-    case TD(SYMB_TAP): // here just to demo can modify tapdance term too
-      return g_tapping_term - 50;
-    case TD(SYMB_TAP_RBRK): // here just to demo can modify tapdance term too
-      return g_tapping_term - 50;
-    default:
-      return g_tapping_term;
-  }
+    switch (keycode) {
+            // shift easier to reach, reduce misinterpreting shift+x as (x taps
+        case KC_LSPO || KC_RSPC:
+            return g_tapping_term - 150;
+        case TD(SYMB_TAP): // here just to demo can modify tapdance term too
+            return g_tapping_term - 65;
+        case TD(SYMB_TAP_RBRK): // here just to demo can modify tapdance term too
+            return g_tapping_term - 65;
+        default:
+            return g_tapping_term;
+    }
 }
 // #endregion
 
