@@ -36,3 +36,6 @@
 
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
 #define CAPS_WORD_IDLE_TIMEOUT 3000 // 5 seconds is the default.
+
+// define how many combos are in our map
+#define COMBO_COUNT 2

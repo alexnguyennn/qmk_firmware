@@ -171,3 +171,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
+
+// #region combos
+const uint16_t PROGMEM tmux_prefix_left_combo[]  = {SGUI_T(KC_D), C_S_T(KC_F), COMBO_END};
+const uint16_t PROGMEM tmux_prefix_right_combo[] = {C_S_T(KC_J), SGUI_T(KC_K), COMBO_END};
+combo_t                key_combos[COMBO_COUNT]   = {
+                     COMBO(tmux_prefix_left_combo, C(KC_UNDERSCORE)),
+                     COMBO(tmux_prefix_right_combo, C(KC_UNDERSCORE)),
+};
+// #endregion
