@@ -7,7 +7,7 @@
 // ; 415 start modifying too much; 425 capitilising starts to fail
 #undef TAPPING_TERM
 // #define TAPPING_TERM    425
-#define TAPPING_TERM    180
+#define TAPPING_TERM 180
 
 // #define PERMISSIVE_HOLD
 

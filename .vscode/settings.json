@@ -26,7 +26,7 @@
     },
     "python.formatting.provider": "yapf",
     "[c]": {
-	    "editor.formatOnSave": false
+        "editor.formatOnSave": true
     },
     "[json]": {
         "editor.formatOnSave": false
