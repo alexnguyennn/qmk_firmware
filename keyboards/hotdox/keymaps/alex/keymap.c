@@ -136,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_PIPE,   KC_7,   KC_8,    KC_9,    KC_EQUAL, KC_F12,
                 KC_EQUAL, KC_4,   KC_5,    KC_6,    KC_PLUS, KC_ENTER,
        KC_TRNS, KC_AMPR, KC_1,   ALT_T(KC_2),    GUI_T(KC_3),    CTL_T(KC_BSLS), KC_TRNS,
-                         KC_TRNS,KC_DOT,  KC_0,    KC_ASTR,  KC_TRNS,
+                         KC_0,KC_DOT,  KC_0,    KC_ASTR,  KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
