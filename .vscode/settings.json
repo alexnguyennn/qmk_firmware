@@ -25,6 +25,9 @@
         "files.trimTrailingWhitespace": false
     },
     "python.formatting.provider": "yapf",
+    "[c]": {
+	    "editor.formatOnSave": false
+    },
     "[json]": {
         "editor.formatOnSave": false
     },
