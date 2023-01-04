@@ -39,3 +39,6 @@
 
 // define how many combos are in our map
 #define COMBO_COUNT 2
+// configure combo parameters
+#define COMBO_MUST_TAP_PER_COMBO
+#define COMBO_TERM_PER_COMBO

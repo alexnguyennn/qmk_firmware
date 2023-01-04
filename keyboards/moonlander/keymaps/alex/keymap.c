@@ -179,4 +179,51 @@ combo_t                key_combos[COMBO_COUNT]   = {
                      COMBO(tmux_prefix_left_combo, C(KC_UNDERSCORE)),
                      COMBO(tmux_prefix_right_combo, C(KC_UNDERSCORE)),
 };
+
+uint16_t get_combo_term(uint16_t index, combo_t *combo) {
+    // decide by combo->keycode
+    // NOTE: pick a combo low enough to stop skipping characters during typing but
+    // high enough that we can still trigger it
+    switch (combo->keycode) {
+        // tmux prefix: mkdir is a good test string
+        case C(KC_UNDERSCORE):
+            return 15; // use a short prefix; combo should be pressed at same time
+    }
+
+    // // or with combo index, i.e. its name from enum.
+    // switch (index) {
+    //     case COMBO_NAME_HERE:
+    //         return 9001;
+    // }
+
+    // And if you're feeling adventurous, you can even decide by the keys in the chord,
+    // i.e. the exact array of keys you defined for the combo.
+    // This can be useful if your combos have a common key and you want to apply the
+    // same combo term for all of them.
+    // if (combo->keys[0] == KC_ENT) { // if first key in the array is Enter
+    //     return 150;
+    // }
+
+    return COMBO_TERM;
+}
+
+bool get_combo_must_tap(uint16_t index, combo_t *combo) {
+    // If you want all combos to be tap-only, just uncomment the next line
+    // return true
+
+    // If you want *all* combos, that have Mod-Tap/Layer-Tap/Momentary keys in its chord, to be tap-only, this is for you:
+    uint16_t key;
+    uint8_t  idx = 0;
+    while ((key = pgm_read_word(&combo->keys[idx])) != COMBO_END) {
+        switch (key) {
+            case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+            case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+            case QK_MOMENTARY ... QK_MOMENTARY_MAX:
+                return true;
+        }
+        idx += 1;
+    }
+    return false;
+}
+
 // #endregion
