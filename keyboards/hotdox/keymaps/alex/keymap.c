@@ -352,7 +352,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
             // shift easier to reach, reduce misinterpreting shift+x as (x taps
         case KC_LSPO || KC_RSPC:
-            return g_tapping_term - 150;
+            return g_tapping_term - 170;
         case TD(SYMB_TAP): // here just to demo can modify tapdance term too
             return g_tapping_term - 65;
         case TD(SYMB_TAP_RBRK): // here just to demo can modify tapdance term too

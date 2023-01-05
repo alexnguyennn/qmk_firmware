@@ -7,7 +7,7 @@
 // ; 415 start modifying too much; 425 capitilising starts to fail
 #undef TAPPING_TERM
 // #define TAPPING_TERM    425
-#define TAPPING_TERM 180
+#define TAPPING_TERM 200
 
 // #define PERMISSIVE_HOLD
 
@@ -17,9 +17,6 @@ If the IGNORE_MOD_TAP_INTERRUPT option is enabled, Mod Tap keys are no gklonger 
 #define IGNORE_MOD_TAP_INTERRUPT
 
 #define TAPPING_TERM_PER_KEY
-
-#undef TAP_CODE_DELAY
-#define TAP_CODE_DELAY 50
 
 #undef LEADER_TIMEOUT
 #define LEADER_TIMEOUT 350
