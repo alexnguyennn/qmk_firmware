@@ -462,9 +462,13 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 // #region combos
 const uint16_t PROGMEM tmux_prefix_left_combo[]  = {SGUI_T(KC_D), C_S_T(KC_F), COMBO_END};
 const uint16_t PROGMEM tmux_prefix_right_combo[] = {C_S_T(KC_J), SGUI_T(KC_K), COMBO_END};
+const uint16_t PROGMEM backslash_left_combo[]    = {SGUI_T(KC_D), C_S_T(KC_F), MT(MOD_LALT | MOD_LGUI, KC_S), COMBO_END};
+const uint16_t PROGMEM backslash_right_combo[]   = {C_S_T(KC_J), SGUI_T(KC_K), MT(MOD_RALT | MOD_RGUI, KC_L), COMBO_END};
 combo_t                key_combos[COMBO_COUNT]   = {
                      COMBO(tmux_prefix_left_combo, C(KC_UNDERSCORE)),
                      COMBO(tmux_prefix_right_combo, C(KC_UNDERSCORE)),
+                     COMBO(backslash_left_combo, LT(1, KC_BACKSLASH)),
+                     COMBO(backslash_right_combo, LT(1, KC_BACKSLASH)),
 };
 
 uint16_t get_combo_term(uint16_t index, combo_t *combo) {
@@ -475,6 +479,8 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
         // tmux prefix: mkdir is a good test string
         case C(KC_UNDERSCORE):
             return 15; // use a short prefix; combo should be pressed at same time
+                       // case LT(1, KC_BACKSLASH):
+                       // return 15;
     }
 
     // // or with combo index, i.e. its name from enum.
@@ -497,19 +503,26 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
 bool get_combo_must_tap(uint16_t index, combo_t *combo) {
     // If you want all combos to be tap-only, just uncomment the next line
     // return true
+    switch (combo->keycode) {
+        // tmux prefix: make it tap only
+        case C(KC_UNDERSCORE):
+            return true;
+    }
 
     // If you want *all* combos, that have Mod-Tap/Layer-Tap/Momentary keys in its chord, to be tap-only, this is for you:
-    uint16_t key;
-    uint8_t  idx = 0;
-    while ((key = pgm_read_word(&combo->keys[idx])) != COMBO_END) {
-        switch (key) {
-            case QK_MOD_TAP ... QK_MOD_TAP_MAX:
-            case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
-            case QK_MOMENTARY ... QK_MOMENTARY_MAX:
-                return true;
-        }
-        idx += 1;
-    }
+    // uint16_t key;
+    // uint8_t  idx = 0;
+    // while ((key = pgm_read_word(&combo->keys[idx])) != COMBO_END) {
+    //     switch (key) {
+    //         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+    //         case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+    //         case QK_MOMENTARY ... QK_MOMENTARY_MAX:
+    //             return true;
+    //     }
+    //     idx += 1;
+    // }
+
+    // everything else doesn't require a tap
     return false;
 }
 // #endregion

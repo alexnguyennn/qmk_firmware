@@ -64,6 +64,6 @@ If the IGNORE_MOD_TAP_INTERRUPT option is enabled, Mod Tap keys are no gklonger 
 #define CAPS_WORD_IDLE_TIMEOUT 3000 // 5 seconds is the default.
 
 // define how many combos are in our map
-#define COMBO_COUNT 2
+#define COMBO_COUNT 4
 #define COMBO_MUST_TAP_PER_COMBO
 #define COMBO_TERM_PER_COMBO

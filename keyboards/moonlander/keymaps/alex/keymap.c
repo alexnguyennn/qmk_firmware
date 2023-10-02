@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CAPS_WORD, KC_EXLM,        KC_AT,          KC_LCBR,        KC_RCBR,        KC_UNDERSCORE, KC_KP_PLUS,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_7,           KC_8,           KC_9,           KC_ASTR,        KC_F12,
         KC_GRAVE, KC_HASH,        KC_DLR,         KC_LEFT_ANGLE_BRACKET,        KC_RIGHT_ANGLE_BRACKET,        KC_MINUS,       KC_EQUAL,                                                                 KC_TRANSPARENT, KC_DOWN,        KC_4,           KC_5,           KC_6,           KC_KP_PLUS,     KC_TRANSPARENT,
         KC_TRANSPARENT, KC_PERC,        KC_CIRC,        KC_LBRC,    KC_RBRC,    KC_TRANSPARENT,                                        KC_AMPR,        KC_1,           KC_2,           KC_3,           KC_BSLS,      KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_COMMA,       HSV_0_255_255,  HSV_86_255_128, HSV_172_255_255,RGB_MOD,                                                                                                        RGB_TOG,        KC_TRANSPARENT, KC_DOT,         KC_0,           KC_EQUAL,       KC_TRANSPARENT,
+        KC_TRANSPARENT, KC_COMMA,       HSV_0_255_255,  HSV_86_255_128, HSV_172_255_255,RGB_MOD,                                                                                                        RGB_TOG,        KC_0, KC_DOT,         KC_0,           KC_EQUAL,       KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, TOGGLE_LAYER_COLOR,                RGB_SLD,        KC_TRANSPARENT, KC_TRANSPARENT
     ),
     [2] = LAYOUT_moonlander(
