@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #include QMK_KEYBOARD_H
 #ifdef CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 #    include "timer.h"
@@ -25,9 +24,6 @@ enum charybdis_keymap_layers {
     CUSTOM,
     POINTER,
 };
-
-/** \brief Automatically enable sniping-mode on the pointer layer. */
-#define CHARYBDIS_AUTO_SNIPING_ON_LAYER POINTER
 
 #ifdef CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 static uint16_t auto_pointer_layer_timer = 0;
@@ -51,9 +47,6 @@ static uint16_t auto_pointer_layer_timer = 0;
 #    define SNIPING KC_NO
 #endif // !POINTING_DEVICE_ENABLE
 
-// TODO: easymotion
-// TODO: combo keys setup -thumb sideways and thumb vertical
-
 enum custom_keycodes { EASYMOTION = SAFE_RANGE };
 
 // clang-format off
@@ -64,11 +57,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
         HYPR_T(KC_TAB),    MT(MOD_LCTL|MOD_LGUI|MOD_LSFT,KC_Q),    LCAG_T(KC_W),    MT(MOD_LALT|MOD_LGUI|MOD_LSFT,KC_E),    MEH_T(KC_R),    KC_T,       KC_Y,    MEH_T(KC_U),    MT(MOD_RALT|MOD_RGUI|MOD_RSFT,KC_I),    LCAG_T(KC_O),    MT(MOD_RCTL|MOD_RGUI|MOD_RSFT,KC_P), KC_BSLS,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       CTL_T(KC_ESCAPE),    MT(MOD_LCTL|MOD_LGUI,KC_A),    MT(MOD_LALT|MOD_LGUI,KC_S),    SGUI_T(KC_D),    C_S_T(KC_F),    LCA_T(KC_G),       LCA_T(KC_H),    C_S_T(KC_J),    SGUI_T(KC_K),    MT(MOD_RALT|MOD_RGUI,KC_L), MT(MOD_RCTL|MOD_RGUI,KC_SEMICOLON), CTL_T(KC_QUOTE),
+       HYPR_T(KC_ESCAPE),    MT(MOD_LCTL|MOD_LGUI,KC_A),    MT(MOD_LALT|MOD_LGUI,KC_S),    SGUI_T(KC_D),    C_S_T(KC_F),    LCA_T(KC_G),       LCA_T(KC_H),    C_S_T(KC_J),    SGUI_T(KC_K),    MT(MOD_RALT|MOD_RGUI,KC_L), MT(MOD_RCTL|MOD_RGUI,KC_SEMICOLON), CTL_T(KC_QUOTE),
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       SC_LSPO,    PT_Z,    GUI_T(KC_X),    ALT_T(KC_C),    MT(MOD_LSFT|MOD_LALT,KC_V),    KC_B,       KC_N,    MT(MOD_RSFT|MOD_RALT,KC_M), ALT_T(KC_COMM),  GUI_T(KC_DOT), PT_SLSH, SC_RSPC,
+       SC_LSPO,    CTL_T(KC_Z),    GUI_T(KC_X),    ALT_T(KC_C),    MT(MOD_LSFT|MOD_LALT,KC_V),    KC_B,       KC_N,    MT(MOD_RSFT|MOD_RALT,KC_M), ALT_T(KC_COMMA),  GUI_T(KC_DOT), CTL_T(KC_SLASH), SC_RSPC,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
-                                   LT(CUSTOM,KC_SPC), LT(SYMB,KC_BSPC),   KC_UNDERSCORE,      LT(SYMB,KC_DELETE),  LT(CUSTOM,KC_ENT),
+                                   LT(CUSTOM,KC_SPC), LT(SYMB,KC_BACKSPACE),   KC_UNDERSCORE,      LT(SYMB,KC_DELETE),  LT(CUSTOM,KC_ENT),
                                            EASYMOTION, KC_MINUS,     EASYMOTION
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
@@ -96,10 +89,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        KC_MPLY, XXXXXXX,   XXXXXXX, KC_PGDN, KC_FIND, XXXXXXX,    KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_MUTE, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       KC_MPRV, XXXXXXX, XXXXXXX, KC_CUT,  XXXXXXX, KC_PSCR,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_VOLD, XXXXXXX,
+       KC_MPRV, KC_UNDERSCORE, XXXXXXX, KC_CUT,  XXXXXXX, KC_PSCR,    XXXXXXX, XXXXXXX, XXXXXXX, QK_CAPS_WORD_TOGGLE, KC_VOLD, XXXXXXX,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
-                                  _______, _______, XXXXXXX,    _______, XXXXXXX,
-                                           _______, _______,    XXXXXXX
+                                  KC_LBRC, S(KC_COMMA), XXXXXXX,    S(KC_DOT), KC_RBRC,
+                                           KC_LCBR, KC_PLUS,    KC_RCBR
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
 
@@ -109,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DPI_MOD, S_D_MOD,    S_D_MOD, DPI_MOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX, KC_LCTL, KC_LGUI, KC_LALT, KC_LSFT, XXXXXXX,    XXXXXXX, KC_RSFT, KC_RALT, KC_RGUI, KC_RCTL, XXXXXXX,
+       XXXXXXX, DRGSCRL, SNIPING, KC_LALT, KC_LSFT, XXXXXXX,    XXXXXXX, KC_RSFT, KC_RALT, SNIPING, DRGSCRL, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX, _______, DRGSCRL, SNIPING, EE_CLR,  QK_BOOT,    QK_BOOT, EE_CLR,  SNIPING, DRGSCRL, _______, XXXXXXX,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
@@ -190,9 +183,30 @@ const uint16_t PROGMEM tmux_prefix_right_combo[] = {LT(SYMB, KC_DELETE), EASYMOT
 const uint16_t PROGMEM backslash_left_combo[]    = {SGUI_T(KC_D), C_S_T(KC_F), COMBO_END};
 const uint16_t PROGMEM backslash_right_combo[]   = {C_S_T(KC_J), SGUI_T(KC_K), COMBO_END};
 const uint16_t PROGMEM equals_combo[]            = {KC_UNDERSCORE, KC_MINUS, COMBO_END};
-const uint16_t PROGMEM caps_combo[]              = {EASYMOTION, KC_MINUS, COMBO_END};
+const uint16_t PROGMEM caps_combo[]              = {LT(CUSTOM, KC_SPC), LT(CUSTOM, KC_ENT), COMBO_END};
+const uint16_t PROGMEM angle_left_combo[]        = {SGUI_T(KC_D), MT(MOD_LALT | MOD_LGUI, KC_S), COMBO_END};
+const uint16_t PROGMEM angle_right_combo[]       = {SGUI_T(KC_K), MT(MOD_RALT | MOD_RGUI, KC_L), COMBO_END};
+const uint16_t PROGMEM brace_left_combo[]        = {MT(MOD_LALT | MOD_LGUI | MOD_LSFT, KC_E), LCAG_T(KC_W), COMBO_END};
+const uint16_t PROGMEM brace_right_combo[]       = {MT(MOD_LALT | MOD_LGUI | MOD_LSFT, KC_I), LCAG_T(KC_O), COMBO_END};
+const uint16_t PROGMEM grave_combo[]             = {ALT_T(KC_C), MT(MOD_LSFT | MOD_LALT, KC_V), COMBO_END};
+const uint16_t PROGMEM minus_combo[]             = {ALT_T(KC_COMMA), MT(MOD_RSFT | MOD_RALT, KC_M), COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {COMBO(tmux_prefix_left_combo, LT(SYMB, C(KC_UNDERSCORE))), COMBO(tmux_prefix_right_combo, LT(SYMB, C(KC_UNDERSCORE))), COMBO(backslash_left_combo, LT(SYMB, KC_BACKSLASH)), COMBO(backslash_right_combo, LT(SYMB, KC_BACKSLASH)), COMBO(equals_combo, LT(SYMB, KC_EQUAL)), COMBO(caps_combo, LT(SYMB, QK_CAPS_WORD_TOGGLE))};
+// clang-format off
+combo_t key_combos[COMBO_COUNT] = {
+    COMBO(tmux_prefix_left_combo, C(KC_UNDERSCORE)),
+    COMBO(tmux_prefix_right_combo, C(KC_UNDERSCORE)),
+    COMBO(backslash_left_combo, LT(POINTER, KC_BACKSLASH)),
+    COMBO(backslash_right_combo, LT(POINTER, KC_BACKSLASH)),
+    COMBO(equals_combo, LT(SYMB, KC_EQUAL)),
+    COMBO(caps_combo, QK_CAPS_WORD_TOGGLE),
+    COMBO(angle_left_combo, S(KC_COMMA)),
+    COMBO(angle_right_combo, S(KC_DOT)),
+    COMBO(brace_left_combo, KC_LCBR),
+    COMBO(brace_right_combo, KC_RCBR),
+    COMBO(minus_combo, LT(SYMB, KC_MINUS)),
+    COMBO(grave_combo, LT(SYMB, KC_GRAVE))
+    };
+// clang-format on
 
 uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     // decide by combo->keycode
