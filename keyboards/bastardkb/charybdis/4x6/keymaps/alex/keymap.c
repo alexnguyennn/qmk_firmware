@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        HYPR_T(KC_ESCAPE),    MT(MOD_LCTL|MOD_LGUI,KC_A),    MT(MOD_LALT|MOD_LGUI,KC_S),    SGUI_T(KC_D),    C_S_T(KC_F),    LCA_T(KC_G),       LCA_T(KC_H),    C_S_T(KC_J),    SGUI_T(KC_K),    MT(MOD_RALT|MOD_RGUI,KC_L), MT(MOD_RCTL|MOD_RGUI,KC_SEMICOLON), CTL_T(KC_QUOTE),
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       SC_LSPO,    CTL_T(KC_Z),    GUI_T(KC_X),    ALT_T(KC_C),    MT(MOD_LSFT|MOD_LALT,KC_V),    LT(POINTER, KC_B),       LT(POINTER, KC_N),    MT(MOD_RSFT|MOD_RALT,KC_M), ALT_T(KC_COMMA),  GUI_T(KC_DOT), CTL_T(KC_SLASH), SC_RSPC,
+       SC_LSPO,    CTL_T(KC_Z),    GUI_T(KC_X),    ALT_T(KC_C),    MT(MOD_LSFT|MOD_LALT,KC_V),    LT(SYMB, KC_B),       LT(SYMB, KC_N),    MT(MOD_RSFT|MOD_RALT,KC_M), ALT_T(KC_COMMA),  GUI_T(KC_DOT), CTL_T(KC_SLASH), SC_RSPC,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                    LT(CUSTOM,KC_SPC), LT(SYMB,KC_BACKSPACE),   KC_UNDERSCORE,      LT(SYMB,KC_DELETE),  LT(CUSTOM,KC_ENT),
                                            EASYMOTION, KC_MINUS,     EASYMOTION
@@ -178,6 +178,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 // #region combos
+const uint16_t PROGMEM grave_combo[]             = {LT(CUSTOM, KC_SPC), EASYMOTION, COMBO_END};
+const uint16_t PROGMEM minus_combo[]             = {LT(CUSTOM, KC_ENT), EASYMOTION, COMBO_END};
 const uint16_t PROGMEM tmux_prefix_left_combo[]  = {LT(SYMB, KC_BSPC), EASYMOTION, COMBO_END};
 const uint16_t PROGMEM tmux_prefix_right_combo[] = {LT(SYMB, KC_DELETE), EASYMOTION, COMBO_END};
 const uint16_t PROGMEM backslash_left_combo[]    = {SGUI_T(KC_D), C_S_T(KC_F), COMBO_END};
@@ -195,8 +197,8 @@ const uint16_t PROGMEM easymotion_right_combo[]  = {ALT_T(KC_COMMA), MT(MOD_RSFT
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(tmux_prefix_left_combo, C(KC_UNDERSCORE)),
     COMBO(tmux_prefix_right_combo, C(KC_UNDERSCORE)),
-    COMBO(backslash_left_combo, LT(SYMB, KC_BACKSLASH)),
-    COMBO(backslash_right_combo, LT(SYMB, KC_BACKSLASH)),
+    COMBO(backslash_left_combo, LT(POINTER, KC_BACKSLASH)),
+    COMBO(backslash_right_combo, LT(POINTER, KC_BACKSLASH)),
     COMBO(equals_combo, LT(SYMB, KC_EQUAL)),
     COMBO(caps_combo, QK_CAPS_WORD_TOGGLE),
     COMBO(angle_left_combo, S(KC_COMMA)),
@@ -205,6 +207,8 @@ combo_t key_combos[COMBO_COUNT] = {
     COMBO(brace_right_combo, KC_RCBR),
     COMBO(easymotion_left_combo, EASYMOTION),
     COMBO(easymotion_right_combo, EASYMOTION),
+    COMBO(grave_combo, LT(SYMB, KC_GRAVE)),
+    COMBO(minus_combo, LT(SYMB, KC_MINUS)),
     };
 // clang-format on
 

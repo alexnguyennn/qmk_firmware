@@ -34,7 +34,7 @@
 #endif // POINTING_DEVICE_ENABLE
 
 // define how many combos are in our map
-#define COMBO_COUNT 12
+#define COMBO_COUNT 14
 #define COMBO_MUST_TAP_PER_COMBO
 
 #define COMBO_TERM_PER_COMBO
