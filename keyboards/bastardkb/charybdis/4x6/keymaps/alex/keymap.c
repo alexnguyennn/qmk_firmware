@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
         HYPR_T(KC_TAB),    MT(MOD_LCTL|MOD_LGUI|MOD_LSFT,KC_Q),    LCAG_T(KC_W),    MT(MOD_LALT|MOD_LGUI|MOD_LSFT,KC_E),    MEH_T(KC_R),    LT(POINTER, KC_T),       LT(POINTER, KC_Y),    MEH_T(KC_U),    MT(MOD_RALT|MOD_RGUI|MOD_RSFT,KC_I),    LCAG_T(KC_O),    MT(MOD_RCTL|MOD_RGUI|MOD_RSFT,KC_P), KC_BSLS,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       HYPR_T(KC_ESCAPE),    MT(MOD_LCTL|MOD_LGUI,KC_A),    MT(MOD_LALT|MOD_LGUI,KC_S),    SGUI_T(KC_D),    C_S_T(KC_F),    LCA_T(KC_G),       LCA_T(KC_H),    C_S_T(KC_J),    SGUI_T(KC_K),    MT(MOD_RALT|MOD_RGUI,KC_L), MT(MOD_RCTL|MOD_RGUI,KC_SEMICOLON), CTL_T(KC_QUOTE),
+       HYPR_T(KC_ESCAPE),    MT(MOD_LCTL|MOD_LGUI,KC_A),    MT(MOD_LALT|MOD_LGUI,KC_S),    SGUI_T(KC_D),    C_S_T(KC_F),    LCA_T(KC_G),       LCA_T(KC_H),    C_S_T(KC_J),    SGUI_T(KC_K),    MT(MOD_RALT|MOD_RGUI,KC_L), MT(MOD_RCTL|MOD_RGUI,KC_SEMICOLON), HYPR_T(KC_QUOTE),
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        SC_LSPO,    CTL_T(KC_Z),    GUI_T(KC_X),    ALT_T(KC_C),    MT(MOD_LSFT|MOD_LALT,KC_V),    LT(SYMB, KC_B),       LT(SYMB, KC_N),    MT(MOD_RSFT|MOD_RALT,KC_M), ALT_T(KC_COMMA),  GUI_T(KC_DOT), CTL_T(KC_SLASH), SC_RSPC,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        QK_CAPS_WORD_TOGGLE, KC_EXLM, KC_AT, KC_LCBR, KC_RCBR, KC_PLUS,    KC_PLUS,   KC_7,   KC_8,   KC_9, KC_RBRC, KC_F12,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       KC_GRAVE, KC_LGUI, KC_LALT, S(KC_COMMA), S(KC_DOT), KC_MINUS,    KC_MINUS,   KC_4,   KC_5,   KC_6, KC_PMNS, KC_PEQL,
+       KC_GRAVE, KC_TILD, KC_GRAVE, S(KC_COMMA), S(KC_DOT), KC_MINUS,    KC_MINUS,   KC_4,   KC_5,   KC_6, KC_PMNS, KC_PEQL,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
       RGB_RMOD, XXXXXXX, XXXXXXX, ALT_T(KC_LBRC), KC_RBRC, KC_EQUAL,    KC_EQUAL,   KC_1,   KC_2,   KC_3, KC_PSLS, KC_PDOT,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
@@ -195,25 +195,21 @@ const uint16_t PROGMEM easymotion_right_combo[]  = {ALT_T(KC_COMMA), MT(MOD_RSFT
 
 // clang-format off
 // TODO: rename variables
-// TODO: put tmux somewhere else (mabe swap with existing left click), use it for left click (easier reach)
-// TODO: inroduce left 2 button combo
-// put scroll there, put snipe in existing scroll
+// TODO: inroduce left 2 button combo // put scroll there, put snipe in existing scroll
 // put -/_/=/+ on space layer
-// make symb easier to reach
-// make t go into pointer layer; move sym to backslashm
 combo_t key_combos[COMBO_COUNT] = {
-    COMBO(tmux_prefix_left_combo, C(KC_UNDERSCORE)),
-    COMBO(tmux_prefix_right_combo, C(KC_UNDERSCORE)),
-    COMBO(backslash_left_combo, LT(POINTER, KC_BACKSLASH)),
-    COMBO(backslash_right_combo, LT(POINTER, KC_BACKSLASH)),
+    COMBO(tmux_prefix_left_combo, KC_BTN1),
+    COMBO(tmux_prefix_right_combo, LT(SYMB, KC_GRAVE)),
+    COMBO(backslash_left_combo, LT(SYMB, KC_BACKSLASH)),
+    COMBO(backslash_right_combo, LT(SYMB, KC_BACKSLASH)),
     COMBO(equals_combo, LT(SYMB, KC_EQUAL)),
     COMBO(caps_combo, QK_CAPS_WORD_TOGGLE),
-    COMBO(angle_left_combo, KC_BTN1),
-    COMBO(angle_right_combo, S(KC_DOT)),
+    COMBO(angle_left_combo, C(KC_UNDERSCORE)),
+    COMBO(angle_right_combo, C(KC_UNDERSCORE)),
     COMBO(brace_left_combo, SNIPING),
     COMBO(brace_right_combo, KC_RCBR),
     COMBO(easymotion_left_combo, DRGSCRL),
-    COMBO(easymotion_right_combo, DRGSCRL),
+    COMBO(easymotion_right_combo, SNIPING),
     COMBO(grave_combo, LT(SYMB, KC_BTN2)),
     COMBO(minus_combo, LT(SYMB, KC_MINUS)),
     };
