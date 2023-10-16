@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ╭──────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────╮
         KC_GRAVE,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,       KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_MINS,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-        HYPR_T(KC_TAB),    MT(MOD_LCTL|MOD_LGUI|MOD_LSFT,KC_Q),    LCAG_T(KC_W),    MT(MOD_LALT|MOD_LGUI|MOD_LSFT,KC_E),    MEH_T(KC_R),    KC_T,       KC_Y,    MEH_T(KC_U),    MT(MOD_RALT|MOD_RGUI|MOD_RSFT,KC_I),    LCAG_T(KC_O),    MT(MOD_RCTL|MOD_RGUI|MOD_RSFT,KC_P), KC_BSLS,
+        HYPR_T(KC_TAB),    MT(MOD_LCTL|MOD_LGUI|MOD_LSFT,KC_Q),    LCAG_T(KC_W),    MT(MOD_LALT|MOD_LGUI|MOD_LSFT,KC_E),    MEH_T(KC_R),    LT(POINTER, KC_T),       LT(POINTER, KC_Y),    MEH_T(KC_U),    MT(MOD_RALT|MOD_RGUI|MOD_RSFT,KC_I),    LCAG_T(KC_O),    MT(MOD_RCTL|MOD_RGUI|MOD_RSFT,KC_P), KC_BSLS,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        HYPR_T(KC_ESCAPE),    MT(MOD_LCTL|MOD_LGUI,KC_A),    MT(MOD_LALT|MOD_LGUI,KC_S),    SGUI_T(KC_D),    C_S_T(KC_F),    LCA_T(KC_G),       LCA_T(KC_H),    C_S_T(KC_J),    SGUI_T(KC_K),    MT(MOD_RALT|MOD_RGUI,KC_L), MT(MOD_RCTL|MOD_RGUI,KC_SEMICOLON), CTL_T(KC_QUOTE),
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
@@ -76,8 +76,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
       RGB_RMOD, XXXXXXX, XXXXXXX, ALT_T(KC_LBRC), KC_RBRC, KC_EQUAL,    KC_EQUAL,   KC_1,   KC_2,   KC_3, KC_PSLS, KC_PDOT,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
-                                  XXXXXXX, XXXXXXX, _______,    XXXXXXX, _______,
-                                           KC_UNDERSCORE, XXXXXXX,      KC_P0
+                                  XXXXXXX, XXXXXXX, _______,    XXXXXXX, KC_0,
+                                           KC_UNDERSCORE, XXXXXXX,      _______
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
 
@@ -87,9 +87,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        KC_MNXT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_INSERT, KC_PGUP, KC_HOME, KC_END, KC_VOLU, KC_F12,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       KC_MPLY, XXXXXXX,   XXXXXXX, KC_PGDN, KC_FIND, XXXXXXX,    KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_MUTE, XXXXXXX,
+       KC_MPLY, XXXXXXX,   XXXXXXX, KC_PGDN, KC_FIND, XXXXXXX,    KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_MUTE, KC_BRMU,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       KC_MPRV, KC_UNDERSCORE, XXXXXXX, KC_CUT,  XXXXXXX, KC_PSCR,    XXXXXXX, XXXXXXX, XXXXXXX, QK_CAPS_WORD_TOGGLE, KC_VOLD, XXXXXXX,
+       KC_MPRV, KC_UNDERSCORE, XXXXXXX, KC_CUT,  XXXXXXX, KC_PSCR,    XXXXXXX, XXXXXXX, XXXXXXX, QK_CAPS_WORD_TOGGLE, KC_VOLD, KC_BRMD,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                   KC_LBRC, S(KC_COMMA), XXXXXXX,    S(KC_DOT), KC_RBRC,
                                            KC_LCBR, KC_PLUS,    KC_RCBR
@@ -102,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DPI_MOD, S_D_MOD,    S_D_MOD, DPI_MOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX, DRGSCRL, SNIPING, KC_LALT, KC_LSFT, XXXXXXX,    XXXXXXX, KC_RSFT, KC_RALT, SNIPING, DRGSCRL, XXXXXXX,
+       XXXXXXX, DRGSCRL, SNIPING, DRGSCRL, SNIPING, XXXXXXX,    XXXXXXX, KC_RSFT, KC_RALT, SNIPING, DRGSCRL, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX, _______, DRGSCRL, SNIPING, EE_CLR,  QK_BOOT,    QK_BOOT, EE_CLR,  SNIPING, DRGSCRL, _______, XXXXXXX,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
@@ -194,6 +194,13 @@ const uint16_t PROGMEM easymotion_left_combo[]   = {ALT_T(KC_C), MT(MOD_LSFT | M
 const uint16_t PROGMEM easymotion_right_combo[]  = {ALT_T(KC_COMMA), MT(MOD_RSFT | MOD_RALT, KC_M), COMBO_END};
 
 // clang-format off
+// TODO: rename variables
+// TODO: put tmux somewhere else (mabe swap with existing left click), use it for left click (easier reach)
+// TODO: inroduce left 2 button combo
+// put scroll there, put snipe in existing scroll
+// put -/_/=/+ on space layer
+// make symb easier to reach
+// make t go into pointer layer; move sym to backslashm
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(tmux_prefix_left_combo, C(KC_UNDERSCORE)),
     COMBO(tmux_prefix_right_combo, C(KC_UNDERSCORE)),
@@ -201,13 +208,13 @@ combo_t key_combos[COMBO_COUNT] = {
     COMBO(backslash_right_combo, LT(POINTER, KC_BACKSLASH)),
     COMBO(equals_combo, LT(SYMB, KC_EQUAL)),
     COMBO(caps_combo, QK_CAPS_WORD_TOGGLE),
-    COMBO(angle_left_combo, S(KC_COMMA)),
+    COMBO(angle_left_combo, KC_BTN1),
     COMBO(angle_right_combo, S(KC_DOT)),
-    COMBO(brace_left_combo, KC_LCBR),
+    COMBO(brace_left_combo, SNIPING),
     COMBO(brace_right_combo, KC_RCBR),
-    COMBO(easymotion_left_combo, EASYMOTION),
-    COMBO(easymotion_right_combo, EASYMOTION),
-    COMBO(grave_combo, LT(SYMB, KC_GRAVE)),
+    COMBO(easymotion_left_combo, DRGSCRL),
+    COMBO(easymotion_right_combo, DRGSCRL),
+    COMBO(grave_combo, LT(SYMB, KC_BTN2)),
     COMBO(minus_combo, LT(SYMB, KC_MINUS)),
     };
 // clang-format on
