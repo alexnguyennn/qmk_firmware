@@ -1,51 +1,50 @@
 
 #include QMK_KEYBOARD_H
 
-#define _QWERTY 0
-#define _LOWER 1
-#define _RAISE 2
+#define BASE 0   // default layer
+#define SYMB 1   // symbols
+#define CUSTOM 2 // symbols
 
-#define RAISE MO(_RAISE)
-#define LOWER MO(_LOWER)
+enum custom_keycodes { EASYMOTION = SAFE_RANGE };
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_QWERTY] = LAYOUT_6x6(
+  [BASE] = LAYOUT_6x6(
 
      KC_F1  , KC_F2 , KC_F3 , KC_F4 , KC_F5 , KC_F6 ,                         KC_F7 , KC_F8 , KC_F9 ,KC_F10 ,KC_F11 ,KC_F12 ,
-     KC_ESC , KC_1  , KC_2  , KC_3  , KC_4  , KC_5  ,                         KC_6  , KC_7  , KC_8  , KC_9  , KC_0  ,KC_BSPC,
-     KC_TAB , KC_Q  , KC_W  , KC_E  , KC_R  , KC_T  ,                         KC_Y  , KC_U  , KC_I  , KC_O  , KC_P  ,KC_MINS,
-     KC_LSFT, KC_A  , KC_S  , KC_D  , KC_F  , KC_G  ,                         KC_H  , KC_J  , KC_K  , KC_L  ,KC_SCLN,KC_QUOT,
-     KC_LCTL, KC_Z  , KC_X  , KC_C  , KC_V  , KC_B  ,                         KC_N  , KC_M  ,KC_COMM,KC_DOT ,KC_SLSH,KC_BSLASH,
+     KC_GRAVE , KC_1  , KC_2  , KC_3  , KC_4  , KC_5  ,                         KC_6  , KC_7  , KC_8  , KC_9  , KC_0  ,KC_MINS,
+     HYPR_T(KC_TAB) , MT(MOD_LCTL|MOD_LGUI|MOD_LSFT,KC_Q)  , LCAG_T(KC_W)  , MT(MOD_LALT|MOD_LGUI|MOD_LSFT,KC_E)  , MEH_T(KC_R)  , KC_T  ,                         KC_Y  , MEH_T(KC_U)  , MT(MOD_RALT|MOD_RGUI|MOD_RSFT,KC_I)  , LCAG_T(KC_O)  , MT(MOD_RCTL|MOD_RGUI|MOD_RSFT,KC_P)  ,KC_BSLS,
+     HYPR_T(KC_ESCAPE), MT(MOD_LCTL|MOD_LGUI,KC_A)  , MT(MOD_LALT|MOD_LGUI,KC_S)  , SGUI_T(KC_D)  , C_S_T(KC_F)  , LCA_T(KC_G)  ,                         LCA_T(KC_H)  , C_S_T(KC_J)  , SGUI_T(KC_K)  , MT(MOD_RALT|MOD_RGUI,KC_L)  ,MT(MOD_RCTL|MOD_RGUI,KC_SEMICOLON),HYPR_T(KC_QUOTE),
+     SC_LSPO, CTL_T(KC_Z)  , GUI_T(KC_X)  , ALT_T(KC_C)  , MT(MOD_LSFT|MOD_LALT,KC_V)  , LT(SYMB, KC_B)  ,                         LT(SYMB, KC_N)  , MT(MOD_RSFT|MOD_RALT,KC_M)  ,ALT_T(KC_COMMA),GUI_T(KC_DOT) ,CTL_T(KC_SLASH),SC_RSPC,
                       KC_LBRC,KC_RBRC,                                                       KC_PLUS, KC_EQL,
-                                      RAISE,KC_SPC,                        KC_ENT, LOWER,
-                                      KC_TAB,KC_HOME,                         KC_END,  KC_DEL,
-                                      KC_BSPC, KC_GRV,                        KC_LGUI, KC_LALT
+                                      LT(CUSTOM,KC_SPC),LT(SYMB,KC_BACKSPACE),                        LT(SYMB,KC_DELETE), LT(CUSTOM,KC_ENT),
+                                      EASYMOTION,KC_UNDERSCORE,                         KC_END,  EASYMOTION,
+                                      KC_GRAVE, KC_MINUS,                        KC_LGUI, KC_LALT
   ),
 
-  [_LOWER] = LAYOUT_6x6(
+  [SYMB] = LAYOUT_6x6(
 
      KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 , KC_F6  ,                         KC_F7 , KC_F8 , KC_F9 ,KC_F10 ,KC_F11 ,KC_F12 ,
      KC_TILD,KC_EXLM, KC_AT ,KC_HASH,KC_DLR ,KC_PERC,                        KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,KC_DEL,
-     _______,_______,_______,_______,_______,KC_LBRC,                        KC_RBRC, KC_P7 , KC_P8 , KC_P9 ,_______,KC_PLUS,
-     _______,KC_HOME,KC_PGUP,KC_PGDN,KC_END ,KC_LPRN,                        KC_RPRN, KC_P4 , KC_P5 , KC_P6 ,KC_MINS,KC_PIPE,
-     _______,_______,_______,_______,_______,_______,                        _______, KC_P1 , KC_P2 , KC_P3 ,KC_EQL ,KC_UNDS,
-                                             RESET,  KC_PSCR,            _______, KC_P0,
-                                             _______,_______,            _______,_______,
+     QK_CAPS_WORD_TOGGLE,KC_EXLM,KC_AT,KC_LCBR,KC_RCBR,KC_PLUS,                        KC_PLUS, KC_7 , KC_8 , KC_9 ,_______,KC_PLUS,
+     KC_GRAVE,KC_TILD,KC_GRAVE,S(KC_COMMA),S(KC_DOT) ,KC_MINUS,                        KC_MINUS, KC_4 , KC_5 , KC_6 ,KC_MINS,KC_PIPE,
+     _______,_______,_______,ALT_T(KC_LBRC),KC_RBRC,KC_EQUAL,                        KC_EQUAL, KC_1 , KC_2 , KC_3 ,KC_EQL ,KC_UNDS,
+                                             QK_BOOT,  KC_PSCR,            _______, KC_P0,
+                                             _______,_______,            _______,KC_0,
                                              _______,_______,            _______,_______,
                                              _______,_______,            _______,_______
   ),
 
-  [_RAISE] = LAYOUT_6x6(
+  [CUSTOM] = LAYOUT_6x6(
 
        KC_F12 , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 ,                        KC_F6  , KC_F7 , KC_F8 , KC_F9 ,KC_F10 ,KC_F11 ,
-       _______,_______,_______,_______,_______,KC_LBRC,                        KC_RBRC,_______,KC_NLCK,KC_INS ,KC_SLCK,KC_MUTE,
-       _______,KC_LEFT,KC_UP  ,KC_DOWN,KC_RGHT,KC_LPRN,                        KC_RPRN,KC_MPRV,KC_MPLY,KC_MNXT,_______,KC_VOLU,
-       _______,_______,_______,_______,_______,_______,                        _______,_______,_______,_______,_______,KC_VOLD,
-       _______,_______,_______,_______,_______,_______,                        _______,_______,_______,_______,_______,_______,
+       KC_F12,KC_F1,KC_F2,KC_F3,KC_F4,KC_F5,                        KC_F6,KC_F7,KC_F8,KC_F9 ,KC_F10,KC_F11,
+       KC_MNXT,_______,_______  ,_______,_______,_______,                        KC_INSERT,KC_PGUP,KC_HOME,KC_END,KC_VOLU,KC_F12,
+       KC_MPLY,_______,_______,KC_PGDN,KC_FIND,_______,                        KC_LEFT,KC_DOWN,KC_UP,KC_RGHT,KC_MUTE,KC_BRMU,
+       KC_MPRV,_______,_______,KC_CUT,_______,KC_PSCR,                        _______,_______,_______,QK_CAPS_WORD_TOGGLE,KC_VOLD,KC_BRMD,
 
-                                               RESET,  _______,            KC_EQL ,_______,
+                                               QK_BOOT,  EE_CLR,            KC_EQL ,_______,
                                                _______,_______,            _______,_______,
                                                _______,_______,            _______,_______,
                                                _______,_______,            _______,_______
@@ -53,3 +52,106 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 // clang-format on
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case EASYMOTION:
+            if (record->event.pressed) {
+                tap_code(KC_G);
+                tap_code(KC_S);
+            }
+            break;
+    }
+    return true;
+}
+
+// #region combos
+const uint16_t PROGMEM grave_combo[]             = {LT(CUSTOM, KC_SPC), EASYMOTION, COMBO_END};
+const uint16_t PROGMEM minus_combo[]             = {LT(CUSTOM, KC_ENT), EASYMOTION, COMBO_END};
+const uint16_t PROGMEM tmux_prefix_left_combo[]  = {LT(SYMB, KC_BSPC), EASYMOTION, COMBO_END};
+const uint16_t PROGMEM tmux_prefix_right_combo[] = {LT(SYMB, KC_DELETE), EASYMOTION, COMBO_END};
+const uint16_t PROGMEM backslash_left_combo[]    = {SGUI_T(KC_D), C_S_T(KC_F), COMBO_END};
+const uint16_t PROGMEM backslash_right_combo[]   = {C_S_T(KC_J), SGUI_T(KC_K), COMBO_END};
+const uint16_t PROGMEM equals_combo[]            = {KC_UNDERSCORE, KC_MINUS, COMBO_END};
+const uint16_t PROGMEM caps_combo[]              = {LT(CUSTOM, KC_SPC), LT(CUSTOM, KC_ENT), COMBO_END};
+const uint16_t PROGMEM angle_left_combo[]        = {SGUI_T(KC_D), MT(MOD_LALT | MOD_LGUI, KC_S), COMBO_END};
+const uint16_t PROGMEM angle_right_combo[]       = {SGUI_T(KC_K), MT(MOD_RALT | MOD_RGUI, KC_L), COMBO_END};
+const uint16_t PROGMEM brace_left_combo[]        = {MT(MOD_LALT | MOD_LGUI | MOD_LSFT, KC_E), LCAG_T(KC_W), COMBO_END};
+const uint16_t PROGMEM brace_right_combo[]       = {MT(MOD_LALT | MOD_LGUI | MOD_LSFT, KC_I), LCAG_T(KC_O), COMBO_END};
+const uint16_t PROGMEM easymotion_left_combo[]   = {ALT_T(KC_C), MT(MOD_LSFT | MOD_LALT, KC_V), COMBO_END};
+const uint16_t PROGMEM easymotion_right_combo[]  = {ALT_T(KC_COMMA), MT(MOD_RSFT | MOD_RALT, KC_M), COMBO_END};
+
+// clang-format off
+// TODO: rename variables
+// TODO: inroduce left 2 button combo // put scroll there, put snipe in existing scroll
+// put -/_/=/+ on space layer
+combo_t key_combos[COMBO_COUNT] = {
+    COMBO(tmux_prefix_left_combo, KC_BTN1),
+    COMBO(tmux_prefix_right_combo, LT(SYMB, KC_GRAVE)),
+    COMBO(backslash_left_combo, LT(SYMB, KC_BACKSLASH)),
+    COMBO(backslash_right_combo, LT(SYMB, KC_BACKSLASH)),
+    COMBO(equals_combo, LT(SYMB, KC_EQUAL)),
+    COMBO(caps_combo, QK_CAPS_WORD_TOGGLE),
+    COMBO(angle_left_combo, C(KC_UNDERSCORE)),
+    COMBO(angle_right_combo, C(KC_UNDERSCORE)),
+    COMBO(brace_right_combo, KC_RCBR),
+    COMBO(grave_combo, LT(SYMB, KC_BTN2)),
+    COMBO(minus_combo, LT(SYMB, KC_MINUS)),
+    };
+// clang-format on
+
+uint16_t get_combo_term(uint16_t index, combo_t *combo) {
+    // decide by combo->keycode
+    // NOTE: pick a combo low enough to stop skipping characters during typing but
+    // high enough that we can still trigger it
+    switch (combo->keycode) {
+        // tmux prefix: mkdir is a good test string
+        case C(KC_UNDERSCORE):
+            return 15; // use a short prefix; combo should be pressed at same time
+                       // case LT(1, KC_BACKSLASH):
+                       // return 15;
+    }
+
+    // // or with combo index, i.e. its name from enum.
+    // switch (index) {
+    //     case COMBO_NAME_HERE:
+    //         return 9001;
+    // }
+
+    // And if you're feeling adventurous, you can even decide by the keys in the chord,
+    // i.e. the exact array of keys you defined for the combo.
+    // This can be useful if your combos have a common key and you want to apply the
+    // same combo term for all of them.
+    // if (combo->keys[0] == KC_ENT) { // if first key in the array is Enter
+    //     return 150;
+    // }
+
+    return COMBO_TERM;
+}
+
+bool get_combo_must_tap(uint16_t index, combo_t *combo) {
+    // If you want all combos to be tap-only, just uncomment the next line
+    // return true
+    switch (combo->keycode) {
+        // tmux prefix: make it tap only
+        case C(KC_UNDERSCORE):
+            return true;
+    }
+
+    // If you want *all* combos, that have Mod-Tap/Layer-Tap/Momentary keys in its chord, to be tap-only, this is for you:
+    // uint16_t key;
+    // uint8_t  idx = 0;
+    // while ((key = pgm_read_word(&combo->keys[idx])) != COMBO_END) {
+    //     switch (key) {
+    //         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+    //         case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+    //         case QK_MOMENTARY ... QK_MOMENTARY_MAX:
+    //             return true;
+    //     }
+    //     idx += 1;
+    // }
+
+    // everything else doesn't require a tap
+    return false;
+}
+// #endregion

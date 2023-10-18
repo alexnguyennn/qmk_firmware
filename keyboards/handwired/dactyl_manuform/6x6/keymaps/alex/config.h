@@ -25,3 +25,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 //#define EE_HANDS
 // Rows are doubled-up
+
+/* Disable unused features. */
+#define NO_ACTION_ONESHOT
+
+#define COMBO_COUNT 11
+#define COMBO_MUST_TAP_PER_COMBO
+
+#define COMBO_TERM_PER_COMBO
+
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+#define CAPS_WORD_IDLE_TIMEOUT 3000 // 5 seconds is the default.
+
+#undef TAPPING_TERM
+// #define TAPPING_TERM    425
+#define TAPPING_TERM 200
+
+#define TAPPING_TERM_PER_KEY
