@@ -4,6 +4,7 @@
 #define BASE 0   // default layer
 #define SYMB 1   // symbols
 #define CUSTOM 2 // symbols
+#define MOUSE 3  // mouse keys
 
 enum custom_keycodes { EASYMOTION = SAFE_RANGE };
 
@@ -14,10 +15,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
      KC_F1  , KC_F2 , KC_F3 , KC_F4 , KC_F5 , KC_F6 ,                         KC_F7 , KC_F8 , KC_F9 ,KC_F10 ,KC_F11 ,KC_F12 ,
      KC_GRAVE , KC_1  , KC_2  , KC_3  , KC_4  , KC_5  ,                         KC_6  , KC_7  , KC_8  , KC_9  , KC_0  ,KC_MINS,
-     HYPR_T(KC_TAB) , MT(MOD_LCTL|MOD_LGUI|MOD_LSFT,KC_Q)  , LCAG_T(KC_W)  , MT(MOD_LALT|MOD_LGUI|MOD_LSFT,KC_E)  , MEH_T(KC_R)  , KC_T  ,                         KC_Y  , MEH_T(KC_U)  , MT(MOD_RALT|MOD_RGUI|MOD_RSFT,KC_I)  , LCAG_T(KC_O)  , MT(MOD_RCTL|MOD_RGUI|MOD_RSFT,KC_P)  ,KC_BSLS,
+     HYPR_T(KC_TAB) , MT(MOD_LCTL|MOD_LGUI|MOD_LSFT,KC_Q)  , LCAG_T(KC_W)  , MT(MOD_LALT|MOD_LGUI|MOD_LSFT,KC_E)  , MEH_T(KC_R)  , LT(MOUSE, KC_T)  ,                         LT(MOUSE, KC_Y)  , MEH_T(KC_U)  , MT(MOD_RALT|MOD_RGUI|MOD_RSFT,KC_I)  , LCAG_T(KC_O)  , MT(MOD_RCTL|MOD_RGUI|MOD_RSFT,KC_P)  ,KC_BSLS,
      HYPR_T(KC_ESCAPE), MT(MOD_LCTL|MOD_LGUI,KC_A)  , MT(MOD_LALT|MOD_LGUI,KC_S)  , SGUI_T(KC_D)  , C_S_T(KC_F)  , LCA_T(KC_G)  ,                         LCA_T(KC_H)  , C_S_T(KC_J)  , SGUI_T(KC_K)  , MT(MOD_RALT|MOD_RGUI,KC_L)  ,MT(MOD_RCTL|MOD_RGUI,KC_SEMICOLON),HYPR_T(KC_QUOTE),
      SC_LSPO, CTL_T(KC_Z)  , GUI_T(KC_X)  , ALT_T(KC_C)  , MT(MOD_LSFT|MOD_LALT,KC_V)  , LT(SYMB, KC_B)  ,                         LT(SYMB, KC_N)  , MT(MOD_RSFT|MOD_RALT,KC_M)  ,ALT_T(KC_COMMA),GUI_T(KC_DOT) ,CTL_T(KC_SLASH),SC_RSPC,
-                      KC_LBRC,KC_RBRC,                                                       KC_PLUS, KC_EQL,
+                      KC_LBRC,LT(MOUSE, KC_RBRC),                                                       LT(MOUSE, KC_PLUS), KC_EQL,
                                       LT(CUSTOM,KC_SPC),LT(SYMB,KC_BACKSPACE),                        LT(SYMB,KC_DELETE), LT(CUSTOM,KC_ENT),
                                       EASYMOTION,KC_UNDERSCORE,                         KC_END,  EASYMOTION,
                                       KC_GRAVE, KC_MINUS,                        KC_LGUI, KC_LALT
@@ -33,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                              QK_BOOT,  KC_PSCR,            _______, KC_P0,
                                              _______,_______,            _______,KC_0,
                                              _______,_______,            _______,_______,
-                                             _______,_______,            _______,_______
+                                             QK_BOOT,_______,            QK_BOOT,_______
   ),
 
   [CUSTOM] = LAYOUT_6x6(
@@ -47,7 +48,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                QK_BOOT,  EE_CLR,            KC_EQL ,_______,
                                                _______,_______,            _______,_______,
                                                _______,_______,            _______,_______,
-                                               _______,_______,            _______,_______
+                                               QK_BOOT,_______,            QK_BOOT,_______
+  ),
+ [MOUSE] = LAYOUT_6x6(
+        KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,
+        KC_TRANSPARENT,KC_ACL0,KC_ACL1,KC_ACL2,KC_TRANSPARENT,KC_TRANSPARENT,         KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,
+        KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,      KC_MS_WH_LEFT,KC_MS_WH_DOWN,KC_MS_WH_UP,KC_MS_WH_RIGHT,KC_TRANSPARENT,KC_TRANSPARENT,
+        KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,      KC_MS_LEFT,KC_MS_DOWN,KC_MS_UP,KC_MS_RIGHT,KC_TRANSPARENT,KC_TRANSPARENT,
+        KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT, KC_ACL2      ,KC_TRANSPARENT,      KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,
+                                            KC_ACL0,KC_TRANSPARENT,           KC_TRANSPARENT,QK_BOOT,
+                                            KC_BTN2,KC_BTN1,                  KC_ACL0,KC_ACL2,
+                                            KC_ACL2,KC_BTN3,                  KC_TRANSPARENT,KC_ACL1,
+                                            KC_TRANSPARENT,KC_TRANSPARENT,    KC_TRANSPARENT,KC_TRANSPARENT
   ),
 
 };
@@ -64,6 +76,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
+// TODO: adapt macro keys
+// TODO: add boot button on both sides (test one sided right hand can flash with boot button)
 
 // #region combos
 const uint16_t PROGMEM grave_combo[]             = {LT(CUSTOM, KC_SPC), EASYMOTION, COMBO_END};

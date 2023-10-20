@@ -42,3 +42,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM 200
 
 #define TAPPING_TERM_PER_KEY
+
+// constant speed ]config
+#define MK_3_SPEED
+#define MK_MOMENTARY_ACCEL
+// start accel, buttons constant
+// #define MK_COMBINED
