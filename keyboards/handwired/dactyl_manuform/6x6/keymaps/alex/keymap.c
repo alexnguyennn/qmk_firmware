@@ -12,8 +12,7 @@ enum custom_keycodes { EASYMOTION = SAFE_RANGE };
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [BASE] = LAYOUT_6x6(
-
-     KC_F1  , KC_F2 , KC_F3 , KC_F4 , KC_F5 , KC_F6 ,                         KC_F7 , KC_F8 , KC_F9 ,KC_F10 ,KC_F11 ,KC_F12 ,
+     KC_F12 , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 ,                        KC_F6  , KC_F7 , KC_F8 , KC_F9 ,KC_F10 ,KC_F11 ,
      KC_GRAVE , KC_1  , KC_2  , KC_3  , KC_4  , KC_5  ,                         KC_6  , KC_7  , KC_8  , KC_9  , KC_0  ,KC_MINS,
      HYPR_T(KC_TAB) , MT(MOD_LCTL|MOD_LGUI|MOD_LSFT,KC_Q)  , LCAG_T(KC_W)  , MT(MOD_LALT|MOD_LGUI|MOD_LSFT,KC_E)  , MEH_T(KC_R)  , LT(MOUSE, KC_T)  ,                         LT(MOUSE, KC_Y)  , MEH_T(KC_U)  , MT(MOD_RALT|MOD_RGUI|MOD_RSFT,KC_I)  , LCAG_T(KC_O)  , MT(MOD_RCTL|MOD_RGUI|MOD_RSFT,KC_P)  ,KC_BSLS,
      HYPR_T(KC_ESCAPE), MT(MOD_LCTL|MOD_LGUI,KC_A)  , MT(MOD_LALT|MOD_LGUI,KC_S)  , SGUI_T(KC_D)  , C_S_T(KC_F)  , LCA_T(KC_G)  ,                         LCA_T(KC_H)  , C_S_T(KC_J)  , SGUI_T(KC_K)  , MT(MOD_RALT|MOD_RGUI,KC_L)  ,MT(MOD_RCTL|MOD_RGUI,KC_SEMICOLON),HYPR_T(KC_QUOTE),
@@ -25,9 +24,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [SYMB] = LAYOUT_6x6(
-
-     KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 , KC_F6  ,                         KC_F7 , KC_F8 , KC_F9 ,KC_F10 ,KC_F11 ,KC_F12 ,
      KC_TILD,KC_EXLM, KC_AT ,KC_HASH,KC_DLR ,KC_PERC,                        KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,KC_DEL,
+     KC_F12 , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 ,                        KC_F6  , KC_F7 , KC_F8 , KC_F9 ,KC_F10 ,KC_F11 ,
      QK_CAPS_WORD_TOGGLE,KC_EXLM,KC_AT,KC_LCBR,KC_RCBR,KC_PLUS,                        KC_PLUS, KC_7 , KC_8 , KC_9 ,_______,KC_PLUS,
      KC_GRAVE,KC_TILD,KC_GRAVE,S(KC_COMMA),S(KC_DOT) ,KC_MINUS,                        KC_MINUS, KC_4 , KC_5 , KC_6 ,KC_MINS,KC_PIPE,
      _______,_______,_______,ALT_T(KC_LBRC),KC_RBRC,KC_EQUAL,                        KC_EQUAL, KC_1 , KC_2 , KC_3 ,KC_EQL ,KC_UNDS,
