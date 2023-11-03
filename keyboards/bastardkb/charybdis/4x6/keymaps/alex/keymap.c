@@ -72,9 +72,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        QK_CAPS_WORD_TOGGLE, KC_EXLM, KC_AT, KC_LCBR, KC_RCBR, KC_PLUS,    KC_PLUS,   KC_7,   KC_8,   KC_9, KC_RBRC, KC_F12,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       KC_GRAVE, KC_TILD, KC_GRAVE, S(KC_COMMA), S(KC_DOT), KC_MINUS,    KC_MINUS,   KC_4,   KC_5,   KC_6, KC_PMNS, KC_PEQL,
+       KC_GRAVE, KC_GRAVE, KC_TILD, S(KC_COMMA), S(KC_DOT), KC_MINUS,    KC_MINUS,   KC_4,   KC_5,   KC_6, KC_PMNS, KC_PEQL,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-      RGB_RMOD, XXXXXXX, XXXXXXX, ALT_T(KC_LBRC), KC_RBRC, KC_EQUAL,    KC_EQUAL,   KC_1,   KC_2,   KC_3, KC_PSLS, KC_PDOT,
+      RGB_RMOD, XXXXXXX, S(KC_SEMICOLON), ALT_T(KC_LBRC), KC_RBRC, KC_EQUAL,    KC_EQUAL,   KC_1,   KC_2,   KC_3, KC_PSLS, KC_PDOT,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                   XXXXXXX, XXXXXXX, _______,    XXXXXXX, KC_0,
                                            KC_UNDERSCORE, XXXXXXX,      _______
