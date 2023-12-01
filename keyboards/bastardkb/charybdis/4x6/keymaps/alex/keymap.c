@@ -219,13 +219,13 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     // decide by combo->keycode
     // NOTE: pick a combo low enough to stop skipping characters during typing but
     // high enough that we can still trigger it
-    switch (combo->keycode) {
-        // tmux prefix: mkdir is a good test string
-        case C(KC_UNDERSCORE):
-            return 15; // use a short prefix; combo should be pressed at same time
-                       // case LT(1, KC_BACKSLASH):
-                       // return 15;
-    }
+    // switch (combo->keycode) {
+    //     // tmux prefix: mkdir is a good test string
+    //     case C(KC_UNDERSCORE):
+    //         return 15; // use a short prefix; combo should be pressed at same time
+    //                    // case LT(1, KC_BACKSLASH):
+    //                    // return 15;
+    // }
 
     // // or with combo index, i.e. its name from enum.
     // switch (index) {

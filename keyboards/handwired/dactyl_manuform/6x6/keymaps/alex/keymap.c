@@ -76,6 +76,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 // TODO: adapt macro keys
 // TODO: add boot button on both sides (test one sided right hand can flash with boot button)
+// TODO; consider snippets/macros for combos
 
 // #region combos
 const uint16_t PROGMEM grave_combo[]             = {LT(CUSTOM, KC_SPC), EASYMOTION, COMBO_END};
@@ -97,6 +98,8 @@ const uint16_t PROGMEM easymotion_right_combo[]  = {ALT_T(KC_COMMA), MT(MOD_RSFT
 // TODO: rename variables
 // TODO: inroduce left 2 button combo // put scroll there, put snipe in existing scroll
 // put -/_/=/+ on space layer
+// W/R ; S/F; X/V | U/O; J/L; M/. are easy to hit on dactyl-likes - explore usage?
+// TODO: combos for arrow -> <- ?
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(tmux_prefix_left_combo, KC_BTN1),
     COMBO(tmux_prefix_right_combo, LT(SYMB, KC_GRAVE)),
@@ -116,13 +119,13 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     // decide by combo->keycode
     // NOTE: pick a combo low enough to stop skipping characters during typing but
     // high enough that we can still trigger it
-    switch (combo->keycode) {
-        // tmux prefix: mkdir is a good test string
-        case C(KC_UNDERSCORE):
-            return 15; // use a short prefix; combo should be pressed at same time
-                       // case LT(1, KC_BACKSLASH):
-                       // return 15;
-    }
+    // switch (combo->keycode) {
+    //     // tmux prefix: mkdir is a good test string
+    //     case C(KC_UNDERSCORE):
+    //         return 15; // use a short prefix; combo should be pressed at same time
+    //                    // case LT(1, KC_BACKSLASH):
+    //                    // return 15;
+    // }
 
     // // or with combo index, i.e. its name from enum.
     // switch (index) {
@@ -167,3 +170,13 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
     return false;
 }
 // #endregion
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+            // shift easier to reach, reduce misinterpreting shift+x as (x taps
+        case SC_LSPO || SC_RSPC:
+            return TAPPING_TERM - 170;
+        default:
+            return TAPPING_TERM;
+    }
+}
