@@ -112,7 +112,8 @@ combo_t key_combos[COMBO_COUNT] = {
     COMBO(brace_right_combo, KC_RCBR),
     COMBO(grave_combo, LT(SYMB, KC_BTN2)),
     COMBO(minus_combo, LT(SYMB, KC_MINUS)),
-    };
+    COMBO(easymotion_left_combo, KC_BTN3),
+};
 // clang-format on
 
 uint16_t get_combo_term(uint16_t index, combo_t *combo) {
