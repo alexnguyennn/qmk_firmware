@@ -270,3 +270,28 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
     return false;
 }
 // #endregion
+
+
+// hit keys that should be configured on OS level to change a key indicator
+layer_state_t layer_state_set_user(layer_state_t state) {
+    // F14/F15 are brightup/down on macos
+    switch (get_highest_layer(state)) {
+    case BASE:
+        SEND_STRING(SS_TAP(X_F16));
+        break;
+    case CUSTOM:
+        SEND_STRING(SS_TAP(X_F17));
+        break;
+    case SYMB:
+        SEND_STRING(SS_TAP(X_F18));
+        break;
+    case POINTER:
+        SEND_STRING(SS_TAP(X_F19));
+        break;
+    default: //  for any other layers, or the default layer
+        // F14/F15 are brightup/down on macos
+        SEND_STRING(SS_TAP(X_F13));
+        break;
+    }
+    return state;
+}

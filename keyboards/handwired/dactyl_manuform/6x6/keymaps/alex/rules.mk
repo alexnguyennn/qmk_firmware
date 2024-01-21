@@ -7,3 +7,4 @@ NKRO_ENABLE = yes            # Enable N-Key Rollover
 COMMAND_ENABLE = no        # Commands for debug and configuration
 
 MOUSEKEY_ENABLE = yes
+SEND_STRING_ENABLE = yes
