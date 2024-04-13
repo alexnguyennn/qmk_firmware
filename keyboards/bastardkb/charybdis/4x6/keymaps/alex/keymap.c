@@ -64,8 +64,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        SC_LSPO,    CTL_T(KC_Z),    GUI_T(KC_X),    ALT_T(KC_C),    MT(MOD_LSFT|MOD_LALT,KC_V),    LT(SYMB, KC_B),       LT(SYMB, KC_N),    MT(MOD_RSFT|MOD_RALT,KC_M), ALT_T(KC_COMMA),  GUI_T(KC_DOT), CTL_T(KC_SLASH), SC_RSPC,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
-                                   LT(CUSTOM,KC_SPC), LT(SYMB,KC_BACKSPACE),   KC_UNDERSCORE,      LT(SYMB,KC_DELETE),  LT(CUSTOM,KC_ENT),
-                                           EASYMOTION, KC_EQUAL,     EASYMOTION
+                                   LT(CUSTOM,KC_SPC), LT(SYMB,KC_BSPC),   KC_UNDERSCORE,      LT(SYMB,KC_DELETE),  LT(CUSTOM,KC_ENT),
+                                           EASYMOTION, KC_BSPC,     EASYMOTION
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
 
@@ -157,12 +157,50 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 void rgb_matrix_update_pwm_buffers(void);
 #endif
 
+// https://docs.qmk.fm/#/feature_advanced_keycodes?id=shift-backspace-for-delete
+#define SBSPC LT(SYMB,KC_BSPC)
 // Variable to track the key state and timing
 static uint16_t gs_toggle_timer;
 static bool is_held_with_other = false;
 static bool kc_key_held = false;  // To track if the key was held or not
+// Initialize variable holding the binary
+// representation of active modifiers.
+uint8_t mod_state;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // Store the current modifier state in the variable for later reference
+    mod_state = get_mods();
     switch (keycode) {
+        case SBSPC: {
+        // Initialize a boolean variable that keeps track
+        // of the delete key status: registered or not?
+            if (record->tap.count > 0) { // only act on tap
+                static bool delkey_registered;
+                if (record->event.pressed) {
+                    // Detect the activation of either shift keys
+                    if (mod_state & MOD_MASK_SHIFT) {
+                        // First temporarily canceling both shifts so that
+                        // shift isn't applied to the KC_DEL keycode
+                        del_mods(MOD_MASK_SHIFT);
+                        register_code(KC_DEL);
+                        // Update the boolean variable to reflect the status of KC_DEL
+                        delkey_registered = true;
+                        // Reapplying modifier state so that the held shift key(s)
+                        // still work even after having tapped the Backspace/Delete key.
+                        set_mods(mod_state);
+                        return false;
+                    }
+                } else { // on release of KC_BSPC
+                    // In case KC_DEL is still being sent even after the release of KC_BSPC
+                    if (delkey_registered) {
+                        unregister_code(KC_DEL);
+                        delkey_registered = false;
+                        return false;
+                    }
+                }
+            }
+        // Let QMK process the KC_BSPC keycode as usual outside of shift
+        return true;
+        }
         case EASYMOTION:
             if (record->event.pressed) {
                 // Key is pressed, start the timer and reset the flag
