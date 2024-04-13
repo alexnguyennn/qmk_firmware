@@ -5,6 +5,7 @@
 #define SYMB 1   // symbols
 #define CUSTOM 2 // symbols
 #define MOUSE 3  // mouse keys
+#define FNUM 4  // mouse keys
 
 enum custom_keycodes { EASYMOTION = SAFE_RANGE };
 
@@ -59,21 +60,56 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                 KC_ACL2,KC_BTN3,               KC_TRANSPARENT,KC_ACL1,
                                                 KC_TRANSPARENT,KC_TRANSPARENT, KC_TRANSPARENT,KC_TRANSPARENT
   ),
+ [FNUM] = LAYOUT_6x6(KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_F1,KC_F2,KC_F3,KC_F4,KC_F5,KC_F6,KC_F7,KC_F8,KC_F9,KC_F10,KC_F11,KC_TRANSPARENT,KC_1,KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,KC_0,KC_F12,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT),
 
 };
 // clang-format on
 
+static uint16_t gs_toggle_timer;
+static bool is_held_with_other = false;
+static bool kc_key_held = false;  // To track if the key was held or not
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case EASYMOTION:
             if (record->event.pressed) {
-                tap_code(KC_G);
-                tap_code(KC_S);
+                // Key is pressed, start the timer and reset the flag
+                gs_toggle_timer = timer_read();
+                is_held_with_other = false;
+                kc_key_held = true;
+            } else {
+                // Key is released, check how long it was held and if it was combined with another key
+                if (timer_elapsed(gs_toggle_timer) < TAPPING_TERM && !is_held_with_other) {
+                    // It was a tap, send 'g' and 's'
+                    tap_code(KC_G);
+                    tap_code(KC_S);
+                } else if (is_held_with_other) {
+                    // Key was held with another key, so toggle off the layer 4
+                    layer_off(FNUM);
+                } else {
+                    // It was held without other keys, activate one-shot layer
+                    set_oneshot_layer(FNUM, ONESHOT_START);
+                }
+                kc_key_held = false;
             }
-            break;
+            return false; // Skip all further processing for this key
+        default:
+            if (record->event.pressed) {
+                if (keycode != EASYMOTION && kc_key_held) {
+                    // Another key was pressed while EASYMOTION was held
+                    is_held_with_other = true;
+                    // Toggle on layer FNUM
+                    layer_on(FNUM);
+                }
+            } else if (keycode != EASYMOTION) {
+                // Another key was released, possibly clear the one-shot layer if needed
+                // clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+                clear_oneshot_layer_state(ONESHOT_PRESSED);
+            }
+            return true; // Process all other keys normally
     }
     return true;
 }
+
 // TODO: adapt macro keys
 // TODO: add boot button on both sides (test one sided right hand can flash with boot button)
 // TODO; consider snippets/macros for combos

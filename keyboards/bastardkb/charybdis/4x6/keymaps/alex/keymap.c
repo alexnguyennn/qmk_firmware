@@ -23,6 +23,7 @@ enum charybdis_keymap_layers {
     SYMB,
     CUSTOM,
     POINTER,
+    FNUM,
 };
 
 #ifdef CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
@@ -47,7 +48,9 @@ static uint16_t auto_pointer_layer_timer = 0;
 #    define SNIPING KC_NO
 #endif // !POINTING_DEVICE_ENABLE
 
-enum custom_keycodes { EASYMOTION = SAFE_RANGE };
+enum custom_keycodes {
+    EASYMOTION = SAFE_RANGE
+};
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -62,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        SC_LSPO,    CTL_T(KC_Z),    GUI_T(KC_X),    ALT_T(KC_C),    MT(MOD_LSFT|MOD_LALT,KC_V),    LT(SYMB, KC_B),       LT(SYMB, KC_N),    MT(MOD_RSFT|MOD_RALT,KC_M), ALT_T(KC_COMMA),  GUI_T(KC_DOT), CTL_T(KC_SLASH), SC_RSPC,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                    LT(CUSTOM,KC_SPC), LT(SYMB,KC_BACKSPACE),   KC_UNDERSCORE,      LT(SYMB,KC_DELETE),  LT(CUSTOM,KC_ENT),
-                                           EASYMOTION, KC_MINUS,     EASYMOTION
+                                           EASYMOTION, KC_EQUAL,     EASYMOTION
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
 
@@ -76,8 +79,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
       RGB_RMOD, XXXXXXX, S(KC_SEMICOLON), ALT_T(KC_LBRC), KC_RBRC, KC_EQUAL,    KC_EQUAL,   KC_1,   KC_2,   KC_3, KC_PSLS, KC_PDOT,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
-                                  XXXXXXX, XXXXXXX, _______,    XXXXXXX, KC_0,
-                                           KC_UNDERSCORE, XXXXXXX,      _______
+                                  XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,
+                                           XXXXXXX, XXXXXXX,      XXXXXXX
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
 
@@ -87,12 +90,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        KC_MNXT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_INSERT, KC_PGUP, KC_HOME, KC_END, KC_VOLU, KC_F12,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       KC_MPLY, XXXXXXX,   XXXXXXX, KC_PGDN, KC_FIND, XXXXXXX,    KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_MUTE, KC_BRMU,
+       KC_MPLY, XXXXXXX,   XXXXXXX, KC_PGDN, XXXXXXX, XXXXXXX,    KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_MUTE, KC_BRMU,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       KC_MPRV, KC_UNDERSCORE, XXXXXXX, KC_CUT,  XXXXXXX, KC_PSCR,    XXXXXXX, XXXXXXX, XXXXXXX, QK_CAPS_WORD_TOGGLE, KC_VOLD, KC_BRMD,
+       KC_MPRV, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, KC_PSCR,    XXXXXXX, XXXXXXX, XXXXXXX, QK_CAPS_WORD_TOGGLE, KC_VOLD, KC_BRMD,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
-                                  KC_LBRC, S(KC_COMMA), XXXXXXX,    S(KC_DOT), KC_RBRC,
-                                           KC_LCBR, KC_PLUS,    KC_RCBR
+                                  XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,
+                                           XXXXXXX, XXXXXXX,    XXXXXXX
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
 
@@ -110,6 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                            XXXXXXX, KC_BTN2,    KC_BTN2
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
+ [FNUM] = LAYOUT(KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_F1,KC_F2,KC_F3,KC_F4,KC_F5,KC_F6,KC_F7,KC_F8,KC_F9,KC_F10,KC_F10,KC_TRANSPARENT,KC_1,KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,KC_0,KC_F11,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_F12,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT),
 };
 // clang-format on
 
@@ -153,25 +157,64 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 void rgb_matrix_update_pwm_buffers(void);
 #endif
 
+// Variable to track the key state and timing
+static uint16_t gs_toggle_timer;
+static bool is_held_with_other = false;
+static bool kc_key_held = false;  // To track if the key was held or not
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case EASYMOTION:
             if (record->event.pressed) {
-                tap_code(KC_G);
-                tap_code(KC_S);
+                // Key is pressed, start the timer and reset the flag
+                gs_toggle_timer = timer_read();
+                is_held_with_other = false;
+                kc_key_held = true;
+            } else {
+                // Key is released, check how long it was held and if it was combined with another key
+                if (timer_elapsed(gs_toggle_timer) < TAPPING_TERM && !is_held_with_other) {
+                    // It was a tap, send 'g' and 's'
+                    tap_code(KC_G);
+                    tap_code(KC_S);
+                } else if (is_held_with_other) {
+                    // Key was held with another key, so toggle off the layer 4
+                    layer_off(FNUM);
+                } else {
+                    // It was held without other keys, activate one-shot layer
+                    set_oneshot_layer(FNUM, ONESHOT_START);
+                }
+                kc_key_held = false;
             }
-            break;
+            return false; // Skip all further processing for this key
+        default:
+            if (record->event.pressed) {
+                if (keycode != EASYMOTION && kc_key_held) {
+                    // Another key was pressed while EASYMOTION was held
+                    is_held_with_other = true;
+                    // Toggle on layer FNUM
+                    layer_on(FNUM);
+                }
+            } else if (keycode != EASYMOTION) {
+                // Another key was released, possibly clear the one-shot layer if needed
+                // clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+                clear_oneshot_layer_state(ONESHOT_PRESSED);
+            }
+            return true; // Process all other keys normally
     }
     return true;
 }
 
 // #region combos
+// left thumb diag
 const uint16_t PROGMEM grave_combo[]             = {LT(CUSTOM, KC_SPC), EASYMOTION, COMBO_END};
+// right thumb diag
 const uint16_t PROGMEM minus_combo[]             = {LT(CUSTOM, KC_ENT), EASYMOTION, COMBO_END};
+// left thumb vert
 const uint16_t PROGMEM tmux_prefix_left_combo[]  = {LT(SYMB, KC_BSPC), EASYMOTION, COMBO_END};
+// right thumb vert
 const uint16_t PROGMEM tmux_prefix_right_combo[] = {LT(SYMB, KC_DELETE), EASYMOTION, COMBO_END};
 const uint16_t PROGMEM backslash_left_combo[]    = {SGUI_T(KC_D), C_S_T(KC_F), COMBO_END};
 const uint16_t PROGMEM backslash_right_combo[]   = {C_S_T(KC_J), SGUI_T(KC_K), COMBO_END};
+// right most left thumb vertical
 const uint16_t PROGMEM equals_combo[]            = {KC_UNDERSCORE, KC_MINUS, COMBO_END};
 const uint16_t PROGMEM caps_combo[]              = {LT(CUSTOM, KC_SPC), LT(CUSTOM, KC_ENT), COMBO_END};
 const uint16_t PROGMEM angle_left_combo[]        = {SGUI_T(KC_D), MT(MOD_LALT | MOD_LGUI, KC_S), COMBO_END};

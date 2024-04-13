@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Rows are doubled-up
 
 /* Disable unused features. */
-#define NO_ACTION_ONESHOT
+// #define NO_ACTION_ONESHOT
 
 #define COMBO_COUNT 12
 #define COMBO_MUST_TAP_PER_COMBO
@@ -48,3 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MK_MOMENTARY_ACCEL
 // start accel, buttons constant
 // #define MK_COMBINED
+
+#define ONESHOT_TAP_TOGGLE 4  /* Tapping this number of times holds the key until tapped once again. */
+
+#define PERMISSIVE_HOLD

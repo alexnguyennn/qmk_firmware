@@ -22,7 +22,7 @@
 #endif // VIA_ENABLE
 
 /* Disable unused features. */
-#define NO_ACTION_ONESHOT
+// #define NO_ACTION_ONESHOT
 
 /* Charybdis-specific features. */
 
@@ -55,3 +55,7 @@
 #define TAPPING_TERM 200
 
 #define TAPPING_TERM_PER_KEY
+
+#define ONESHOT_TAP_TOGGLE 4  /* Tapping this number of times holds the key until tapped once again. */
+
+#define PERMISSIVE_HOLD
