@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Disable unused features. */
 // #define NO_ACTION_ONESHOT
 
-#define COMBO_COUNT 12
+#define COMBO_COUNT 14
 #define COMBO_MUST_TAP_PER_COMBO
 
 #define COMBO_TERM_PER_COMBO
