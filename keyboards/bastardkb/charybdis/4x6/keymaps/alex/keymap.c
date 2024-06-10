@@ -62,10 +62,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        HYPR_T(KC_ESCAPE),    MT(MOD_LCTL|MOD_LGUI,KC_A),    MT(MOD_LALT|MOD_LGUI,KC_S),    SGUI_T(KC_D),    C_S_T(KC_F),    LCA_T(KC_G),       LCA_T(KC_H),    C_S_T(KC_J),    SGUI_T(KC_K),    MT(MOD_RALT|MOD_RGUI,KC_L), MT(MOD_RCTL|MOD_RGUI,KC_SEMICOLON), HYPR_T(KC_QUOTE),
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       SC_LSPO,    CTL_T(KC_Z),    GUI_T(KC_X),    ALT_T(KC_C),    MT(MOD_LSFT|MOD_LALT,KC_V),    LT(SYMB, KC_B),       LT(SYMB, KC_N),    MT(MOD_RSFT|MOD_RALT,KC_M), ALT_T(KC_COMMA),  GUI_T(KC_DOT), CTL_T(KC_SLASH), SC_RSPC,
+       SC_LSPO,    CTL_T(KC_Z),    GUI_T(KC_X),    ALT_T(KC_C),    SFT_T(KC_V),    MT(MOD_LSFT|MOD_LALT,KC_B),       MT(MOD_RSFT|MOD_RALT,KC_N),    SFT_T(KC_M), ALT_T(KC_COMMA),  GUI_T(KC_DOT), CTL_T(KC_SLASH), SC_RSPC,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                    LT(CUSTOM,KC_SPC), LT(SYMB,KC_BSPC),   KC_UNDERSCORE,      LT(SYMB,KC_DELETE),  LT(CUSTOM,KC_ENT),
-                                           EASYMOTION, KC_BSPC,     EASYMOTION
+                                           EASYMOTION, DRGSCRL,     EASYMOTION
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
 
@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        KC_GRAVE, KC_GRAVE, KC_TILD, S(KC_COMMA), S(KC_DOT), KC_MINUS,    KC_MINUS,   KC_4,   KC_5,   KC_6, KC_PMNS, KC_PEQL,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-      RGB_RMOD, XXXXXXX, S(KC_SEMICOLON), ALT_T(KC_LBRC), KC_RBRC, KC_EQUAL,    KC_EQUAL,   KC_1,   KC_2,   KC_3, KC_PSLS, KC_PDOT,
+      RGB_RMOD, S(KC_9), S(KC_0), ALT_T(KC_LBRC), KC_RBRC, KC_EQUAL,    KC_EQUAL,   KC_1,   KC_2,   KC_3, KC_PSLS, KC_PDOT,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                   XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,
                                            XXXXXXX, XXXXXXX,      XXXXXXX
@@ -88,9 +88,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ╭──────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────╮
         XXXXXXX,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,      KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       KC_MNXT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_INSERT, KC_PGUP, KC_HOME, KC_END, KC_VOLU, KC_F12,
+       KC_MNXT, KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_INSERT, KC_PGUP, KC_HOME, KC_END, KC_VOLU, KC_F12,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       KC_MPLY, XXXXXXX,   XXXXXXX, KC_PGDN, XXXXXXX, XXXXXXX,    KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_MUTE, KC_BRMU,
+       KC_MPLY, KC_ESCAPE,   XXXXXXX, KC_PGDN, XXXXXXX, XXXXXXX,    KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_MUTE, KC_BRMU,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        KC_MPRV, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, KC_PSCR,    XXXXXXX, XXXXXXX, XXXXXXX, QK_CAPS_WORD_TOGGLE, KC_VOLD, KC_BRMD,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
@@ -242,45 +242,45 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 // #region combos
-// left thumb diag
-const uint16_t PROGMEM grave_combo[]             = {LT(CUSTOM, KC_SPC), EASYMOTION, COMBO_END};
-// right thumb diag
-const uint16_t PROGMEM minus_combo[]             = {LT(CUSTOM, KC_ENT), EASYMOTION, COMBO_END};
+// left thumb left most 2 buttons sideways
+const uint16_t PROGMEM thumb_side_l[]             = {LT(CUSTOM, KC_SPC), LT(SYMB, KC_BSPC), COMBO_END};
+// right thumb right most 2 buttons sideways
+const uint16_t PROGMEM thumb_side_r[]             = {LT(CUSTOM, KC_ENT), LT(SYMB, KC_DELETE), COMBO_END};
 // left thumb vert
-const uint16_t PROGMEM tmux_prefix_left_combo[]  = {LT(SYMB, KC_BSPC), EASYMOTION, COMBO_END};
+const uint16_t PROGMEM thumb_vert_l[]  = {LT(SYMB, KC_BSPC), EASYMOTION, COMBO_END};
 // right thumb vert
-const uint16_t PROGMEM tmux_prefix_right_combo[] = {LT(SYMB, KC_DELETE), EASYMOTION, COMBO_END};
+const uint16_t PROGMEM thumb_vert_r[] = {LT(SYMB, KC_DELETE), EASYMOTION, COMBO_END};
 const uint16_t PROGMEM backslash_left_combo[]    = {SGUI_T(KC_D), C_S_T(KC_F), COMBO_END};
 const uint16_t PROGMEM backslash_right_combo[]   = {C_S_T(KC_J), SGUI_T(KC_K), COMBO_END};
-// right most left thumb vertical
-const uint16_t PROGMEM equals_combo[]            = {KC_UNDERSCORE, KC_MINUS, COMBO_END};
-const uint16_t PROGMEM caps_combo[]              = {LT(CUSTOM, KC_SPC), LT(CUSTOM, KC_ENT), COMBO_END};
-const uint16_t PROGMEM angle_left_combo[]        = {SGUI_T(KC_D), MT(MOD_LALT | MOD_LGUI, KC_S), COMBO_END};
+// index finger left + right key
+const uint16_t PROGMEM index_l_r[]            = {C_S_T(KC_F), C_S_T(KC_J), COMBO_END};
+const uint16_t PROGMEM thumb_closest_l_r[]              = {LT(CUSTOM, KC_SPC), LT(CUSTOM, KC_ENT), COMBO_END};
+const uint16_t PROGMEM middle_l_r[]        = {SGUI_T(KC_D), SGUI_T(KC_K), COMBO_END};
 const uint16_t PROGMEM angle_right_combo[]       = {SGUI_T(KC_K), MT(MOD_RALT | MOD_RGUI, KC_L), COMBO_END};
 const uint16_t PROGMEM brace_left_combo[]        = {MT(MOD_LALT | MOD_LGUI | MOD_LSFT, KC_E), LCAG_T(KC_W), COMBO_END};
 const uint16_t PROGMEM brace_right_combo[]       = {MT(MOD_LALT | MOD_LGUI | MOD_LSFT, KC_I), LCAG_T(KC_O), COMBO_END};
-const uint16_t PROGMEM easymotion_left_combo[]   = {ALT_T(KC_C), MT(MOD_LSFT | MOD_LALT, KC_V), COMBO_END};
-const uint16_t PROGMEM easymotion_right_combo[]  = {ALT_T(KC_COMMA), MT(MOD_RSFT | MOD_RALT, KC_M), COMBO_END};
+const uint16_t PROGMEM easymotion_left_combo[]   = {ALT_T(KC_C), SFT_T(KC_V), COMBO_END};
+const uint16_t PROGMEM index_lower_l_r[]  = {SFT_T(KC_V), SFT_T(KC_M), COMBO_END};
 
 // clang-format off
 // TODO: rename variables
 // TODO: inroduce left 2 button combo // put scroll there, put snipe in existing scroll
 // put -/_/=/+ on space layer
 combo_t key_combos[COMBO_COUNT] = {
-    COMBO(tmux_prefix_left_combo, KC_BTN1),
-    COMBO(tmux_prefix_right_combo, LT(SYMB, KC_GRAVE)),
+    COMBO(thumb_vert_l, KC_BTN1),
+    COMBO(thumb_vert_r, LT(SYMB, KC_QUOTE)),
     COMBO(backslash_left_combo, LT(SYMB, KC_BACKSLASH)),
     COMBO(backslash_right_combo, LT(SYMB, KC_BACKSLASH)),
-    COMBO(equals_combo, LT(SYMB, KC_EQUAL)),
-    COMBO(caps_combo, QK_CAPS_WORD_TOGGLE),
-    COMBO(angle_left_combo, C(KC_UNDERSCORE)),
+    COMBO(index_l_r, LT(SYMB, KC_ESCAPE)),
+    COMBO(thumb_closest_l_r, QK_CAPS_WORD_TOGGLE),
+    COMBO(middle_l_r, C(KC_UNDERSCORE)),
     COMBO(angle_right_combo, C(KC_UNDERSCORE)),
     COMBO(brace_left_combo, SNIPING),
     COMBO(brace_right_combo, KC_RCBR),
     COMBO(easymotion_left_combo, DRGSCRL),
-    COMBO(easymotion_right_combo, SNIPING),
-    COMBO(grave_combo, LT(SYMB, KC_BTN2)),
-    COMBO(minus_combo, LT(SYMB, KC_MINUS)),
+    COMBO(index_lower_l_r, HYPR_T(KC_TAB)),
+    COMBO(thumb_side_l, LT(SYMB, KC_BTN2)),
+    COMBO(thumb_side_r, LT(SYMB, KC_MINUS)),
     };
 // clang-format on
 
