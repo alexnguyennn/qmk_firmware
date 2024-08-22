@@ -19,8 +19,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      HYPR_T(KC_ESCAPE), MT(MOD_LCTL|MOD_LGUI,KC_A)  , MT(MOD_LALT|MOD_LGUI,KC_S)  , SGUI_T(KC_D)  , C_S_T(KC_F)  , LCA_T(KC_G)  ,                         LCA_T(KC_H)  , C_S_T(KC_J)  , SGUI_T(KC_K)  , MT(MOD_RALT|MOD_RGUI,KC_L)  ,MT(MOD_RCTL|MOD_RGUI,KC_SEMICOLON),HYPR_T(KC_QUOTE),
      SC_LSPO, CTL_T(KC_Z)  , GUI_T(KC_X)  , ALT_T(KC_C)  , SFT_T(KC_V)  , MT(MOD_LSFT|MOD_LALT,KC_B)  ,                         MT(MOD_RSFT|MOD_RALT,KC_N)  , SFT_T(KC_M)  ,ALT_T(KC_COMMA),GUI_T(KC_DOT) ,CTL_T(KC_SLASH),SC_RSPC,
                       KC_LBRC,LT(FKEYS, KC_RBRC),                                                       KC_PLUS, LT(SYMB,KC_EQL),
-                                      LT(FKEYS,KC_SPC),LT(FNUM,KC_BSPC),                        LT(FNUM,KC_DELETE), LT(FKEYS,KC_ENT),
-                                      EASYMOTION,LT(CUSTOM, KC_GRV),                         LT(CUSTOM, KC_END),  EASYMOTION,
+                                      LT(CUSTOM,KC_SPC),LT(FNUM,KC_BSPC),                        LT(FNUM,KC_DELETE), LT(CUSTOM,KC_ENT),
+                                      EASYMOTION,LT(FKEYS, KC_GRV),                         LT(FKEYS, KC_END),  EASYMOTION,
                                       LT(SYMB, KC_MINUS), KC_UNDERSCORE,                        KC_LGUI, LT(SYMB,KC_EQL)
   ),
 
@@ -40,9 +40,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
        KC_F12 , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 ,                        KC_F6  , KC_F7 , KC_F8 , KC_F9 ,KC_F10 ,KC_F11 ,
        KC_F12,KC_F1,KC_F2,KC_F3,KC_F4,KC_F5,                        KC_F6,KC_F7,KC_F8,KC_F9 ,KC_F10,KC_F11,
-       KC_MNXT,KC_TAB,_______  ,_______,KC_LEFT_BRACKET,_______,                        KC_INSERT,KC_RIGHT_BRACKET,KC_HOME,KC_END,KC_VOLU,KC_F12,
-       KC_MPLY,KC_ESCAPE,_______,LSFT(KC_COMMA),LSFT(KC_9),KC_MINUS,                        LSFT(KC_MINUS),LSFT(KC_0),LSFT(KC_DOT),KC_RGHT,KC_MUTE,KC_BRMU,
-       KC_MPRV,_______,_______,KC_EQUAL,LSFT(KC_LBRC),KC_PSCR,                        _______,LSFT(KC_RBRC),LSFT(KC_EQUAL),QK_CAPS_WORD_TOGGLE,KC_VOLD,KC_BRMD,
+       KC_MNXT,KC_TAB,_______  ,_______,KC_QUOTE,_______,                        KC_INSERT,KC_PAGE_UP,KC_HOME,KC_END,KC_VOLU,KC_F12,
+       KC_MPLY,KC_ESCAPE,_______,KC_PAGE_DOWN,KC_EQUAL,KC_MINUS,                        KC_LEFT,KC_DOWN,KC_UP,KC_RGHT,KC_MUTE,KC_BRMU,
+       KC_MPRV,_______,_______,KC_TRNS,KC_UNDERSCORE,KC_PSCR,                        _______,KC_PAGE_DOWN,KC_PLUS,QK_CAPS_WORD_TOGGLE,KC_VOLD,KC_BRMD,
 
                                                QK_BOOT,  EE_CLR,            KC_EQL ,_______,
                                                _______,_______,            _______,_______,
@@ -52,15 +52,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  [FKEYS] = LAYOUT_6x6(
         KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,
         KC_TRANSPARENT,KC_ACL0,KC_ACL1,KC_ACL2,KC_TRANSPARENT,KC_TRANSPARENT,         KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,
-        KC_TRANSPARENT,KC_F2,KC_F4,KC_F6,KC_UP,KC_TRANSPARENT,      KC_MS_WH_LEFT,KC_UP,KC_F8,KC_F10,KC_PAGE_UP,KC_PAGE_UP,
-        KC_TRANSPARENT,KC_APPLICATION,KC_TRANSPARENT,KC_LEFT,KC_HOME,KC_RIGHT,      KC_LEFT,KC_DOWN,KC_UP,KC_RIGHT,KC_F11,KC_F12,
-        KC_TRANSPARENT,KC_F1,KC_F3,KC_F5, KC_DOWN      ,KC_TRANSPARENT,      KC_TRANSPARENT,KC_DOWN,KC_F7,KC_F9,KC_PAGE_DOWN,KC_PAGE_DOWN,
+        KC_TRANSPARENT,KC_F21,KC_F22,KC_F23,KC_F24,KC_TRANSPARENT,      KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,_______,_______,KC_F12,
+        KC_ESCAPE,KC_F1,KC_F2,KC_F3,KC_F4,KC_F5,      KC_F6,KC_F7,KC_F8,KC_F9,KC_F10,KC_F11,
+        KC_TRANSPARENT,KC_F11,KC_F12,KC_F13, KC_F14      ,KC_F15,      KC_F16,KC_F17,KC_F18,KC_F19,KC_F20,KC_PAGE_DOWN,
                                 KC_ACL0,KC_TRANSPARENT,                             KC_TRANSPARENT,QK_BOOT,
                                             KC_BTN2,KC_BTN1,                     KC_ACL0,KC_ACL2,
                                                 KC_ACL2,KC_BTN3,               KC_TRANSPARENT,KC_ACL1,
                                                 KC_TRANSPARENT,KC_TRANSPARENT, KC_TRANSPARENT,KC_TRANSPARENT
   ),
- [FNUM] = LAYOUT_6x6(KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_EXLM,KC_AT,KC_HASH,KC_DLR,KC_PERC,KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,KC_F11,KC_TRANSPARENT,KC_1,KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,KC_0,KC_F12,KC_TRANSPARENT,KC_EQUAL,KC_TRANSPARENT,KC_PERC,KC_MINUS,KC_TRANSPARENT,KC_TRANSPARENT,KC_PLUS,KC_COMMA,KC_DOT,KC_SLASH,KC_TRANSPARENT,QK_BOOT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT),
+ [FNUM] = LAYOUT_6x6(KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_EXLM,KC_AT,KC_HASH,KC_DLR,KC_PERC,KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,KC_F11,KC_ESCAPE,KC_1,KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,KC_0,KC_F12,KC_TRANSPARENT,KC_GRAVE,KC_TILD,KC_PERC,KC_UNDERSCORE,KC_TRANSPARENT,KC_TRANSPARENT,KC_MINUS,KC_EQUAL,KC_PLUS,KC_SLASH,KC_TRANSPARENT,QK_BOOT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT),
 
 };
 // clang-format on
@@ -123,10 +123,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     tap_code(KC_S);
                 } else if (is_held_with_other) {
                     // Key was held with another key, so toggle off the layer 4
-                    layer_off(FNUM);
+                    layer_off(FKEYS);
                 } else {
                     // It was held without other keys, activate one-shot layer
-                    set_oneshot_layer(FNUM, ONESHOT_START);
+                    set_oneshot_layer(FKEYS, ONESHOT_START);
                 }
                 kc_key_held = false;
             }
@@ -136,8 +136,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (keycode != EASYMOTION && kc_key_held) {
                     // Another key was pressed while EASYMOTION was held
                     is_held_with_other = true;
-                    // Toggle on layer FNUM
-                    layer_on(FNUM);
+                    // Toggle on layer FKEYS
+                    layer_on(FKEYS);
                 }
             } else if (keycode != EASYMOTION) {
                 // Another key was released, possibly clear the one-shot layer if needed
@@ -156,18 +156,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // #region combos
 // left thumb left most 2 buttons sideways
-const uint16_t PROGMEM thumb_side_l[]             = {LT(FKEYS , KC_SPC), LT(FNUM, KC_BSPC), COMBO_END};
+const uint16_t PROGMEM thumb_side_l[]             = {LT(CUSTOM , KC_SPC), LT(FNUM, KC_BSPC), COMBO_END};
 // right thumb right most 2 buttons sideways
-const uint16_t PROGMEM thumb_side_r[]             = {LT(FKEYS, KC_ENT), LT(FNUM, KC_DELETE), COMBO_END};
+const uint16_t PROGMEM thumb_side_r[]             = {LT(CUSTOM, KC_ENT), LT(FNUM, KC_DELETE), COMBO_END};
 // left thumb vert
-const uint16_t PROGMEM thumb_vert_l[]  = {LT(FKEYS, KC_BSPC), EASYMOTION, COMBO_END};
+const uint16_t PROGMEM thumb_vert_l[]  = {LT(FNUM, KC_BSPC), EASYMOTION, COMBO_END};
 // right thumb vert
 const uint16_t PROGMEM thumb_vert_r[] = {LT(FNUM, KC_DELETE), EASYMOTION, COMBO_END};
 const uint16_t PROGMEM backslash_left_combo[]    = {SGUI_T(KC_D), C_S_T(KC_F), COMBO_END};
 const uint16_t PROGMEM backslash_right_combo[]   = {C_S_T(KC_J), SGUI_T(KC_K), COMBO_END};
 // index finger left + right key
 const uint16_t PROGMEM index_l_r[]            = {C_S_T(KC_F), C_S_T(KC_J), COMBO_END};
-const uint16_t PROGMEM thumb_closest_l_r[]              = {LT(FKEYS, KC_SPC), LT(FKEYS, KC_ENT), COMBO_END};
+const uint16_t PROGMEM thumb_closest_l_r[]              = {LT(CUSTOM, KC_SPC), LT(CUSTOM, KC_ENT), COMBO_END};
 const uint16_t PROGMEM middle_l_r[]        = {SGUI_T(KC_D), SGUI_T(KC_K), COMBO_END};
 const uint16_t PROGMEM angle_right_combo[]       = {SGUI_T(KC_K), MT(MOD_RALT | MOD_RGUI, KC_L), COMBO_END};
 const uint16_t PROGMEM brace_left_combo[]        = {MT(MOD_LALT | MOD_LGUI | MOD_LSFT, KC_E), LCAG_T(KC_W), COMBO_END};
