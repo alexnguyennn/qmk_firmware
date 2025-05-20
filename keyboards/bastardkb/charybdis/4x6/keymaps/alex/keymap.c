@@ -249,6 +249,7 @@ const uint16_t PROGMEM thumb_side_r[]             = {LT(CUSTOM, KC_ENT), LT(SYMB
 // left thumb vert
 const uint16_t PROGMEM thumb_vert_l[]  = {LT(SYMB, KC_BSPC), EASYMOTION, COMBO_END};
 // right thumb vert
+const uint16_t PROGMEM thumb_vert_l_r[]             = {KC_UNDERSCORE, DRGSCRL, COMBO_END};
 const uint16_t PROGMEM thumb_vert_r[] = {LT(SYMB, KC_DELETE), EASYMOTION, COMBO_END};
 const uint16_t PROGMEM backslash_left_combo[]    = {SGUI_T(KC_D), C_S_T(KC_F), COMBO_END};
 const uint16_t PROGMEM backslash_right_combo[]   = {C_S_T(KC_J), SGUI_T(KC_K), COMBO_END};
@@ -268,6 +269,7 @@ const uint16_t PROGMEM index_lower_l_r[]  = {SFT_T(KC_V), SFT_T(KC_M), COMBO_END
 // put -/_/=/+ on space layer
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(thumb_vert_l, KC_BTN1),
+    COMBO(thumb_vert_l_r, KC_BTN1),
     COMBO(thumb_vert_r, LT(SYMB, KC_QUOTE)),
     COMBO(backslash_left_combo, LT(SYMB, KC_BACKSLASH)),
     COMBO(backslash_right_combo, LT(SYMB, KC_BACKSLASH)),
